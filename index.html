@@ -104,7 +104,7 @@
 
   /* ---------- Phone ---------- */
   .phone { width: 390px; height: 844px; flex: none; background: var(--frame); border-radius: 54px; padding: 11px; box-shadow: var(--shadow-phone); }
-  .screen { position: relative; height: 100%; overflow: hidden; border-radius: 44px; background: var(--bg); display: flex; flex-direction: column; }
+  .screen { position: relative; height: 100%; overflow: hidden; overflow: clip; border-radius: 44px; background: var(--bg); display: flex; flex-direction: column; }
   .statusbar { height: 48px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 6px 30px 0 36px; font-weight: 600; font-size: 15px; position: relative; font-variant-numeric: tabular-nums; }
   .statusbar .notch { position: absolute; left: 50%; top: 11px; transform: translateX(-50%); width: 114px; height: 32px; background: var(--frame); border-radius: 20px; }
   .statusbar .sb { display: flex; gap: 3px; align-items: flex-end; }
@@ -200,6 +200,15 @@
   .ap-actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 8px; margin-top: 12px; }
   .ap-status { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--ok); display: flex; gap: 6px; align-items: center; }
   .ap-status.muted { color: var(--ink-3); font-weight: 500; }
+
+  /* Placement: first 5 shifts, no score yet */
+  .placement { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-weight: 600; }
+  .pips { display: inline-flex; gap: 2px; }
+  .pips i { width: 9px; height: 4px; border-radius: 2px; background: var(--tick-empty); }
+  .pips i.on { background: var(--ink-2); }
+  .pl-row { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; padding: 11px 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+  .pl-row .ic { color: var(--ink-3); margin-top: 1px; }
+  .pl-row b { color: var(--ink); font-weight: 600; }
 
   /* ---------- Confirmation sheet ---------- */
   .backdrop { position: absolute; inset: 0; background: rgba(15, 12, 8, .45); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 20; }
@@ -619,6 +628,10 @@
                 <div class="txt"><b>Urgent</b><small>Alerts available techs nearby right away</small></div>
                 <button type="button" class="switch warm" role="switch" aria-checked="false" id="urgentSwitch" aria-label="Urgent"></button>
               </div>
+              <div class="row">
+                <div class="txt"><b>Open to placement techs</b><small>Techs in their first 5 shifts at this tier. License and background already checked.</small></div>
+                <button type="button" class="switch" role="switch" aria-checked="true" aria-label="Open to placement techs" data-toggle></button>
+              </div>
               <textarea class="notes" id="pNotes" placeholder="Notes for the tech, e.g. 3 dentals and a mass removal. Park in the back lot." aria-label="Notes for the tech"></textarea>
             </div>
 
@@ -734,6 +747,14 @@
               </tbody>
             </table>
             <p class="rules-note">If a clinic cancels within 24 hours, the tech is paid 4 hours at the posted rate. Each side can appeal one documented emergency per quarter.</p>
+          </div>
+
+          <div class="section">New accounts start in placement</div>
+          <div class="group">
+            <div class="pl-row"><svg class="ic"><use href="#i-clock"/></svg><span><b>No score for the first 5 shifts.</b> Profiles show "Placement · 2 of 5" instead of a percentage, for techs and clinics alike.</span></div>
+            <div class="pl-row"><svg class="ic"><use href="#i-alert"/></svg><span><b>Everything still counts.</b> Late cancellations are recorded from day one, and a no-show appears on the profile right away.</span></div>
+            <div class="pl-row"><svg class="ic"><use href="#i-users"/></svg><span><b>Matched by caliber of work.</b> Placement techs see shifts at their own tier and skills, from clinics that opted in. They're paired with established clinics, and new clinics with established techs, so one side of every placement shift has a track record.</span></div>
+            <div class="pl-row"><svg class="ic"><use href="#i-info"/></svg><span><b>The first score is blended.</b> It starts from the platform average and moves toward your own record, so one early slip doesn't sink a new account.</span></div>
           </div>
 
           <div class="section">Recent</div>
@@ -859,10 +880,16 @@
       note: 'Worked here twice before. Has anesthesia and dentals.', status: 'pending' },
     { id: 'a2', name: 'Alex Petrov', cred: 'LVT', initials: 'AP', reliab: 94, rating: '★ 4.7 (58)', shifts: 61, dist: '6.0 mi',
       note: 'Has anesthesia and dentals. 2 late cancels this year.', status: 'pending' },
-    { id: 'a3', name: 'Sam Torres', cred: 'RVT', initials: 'ST', reliab: 100, rating: 'New', shifts: 4, dist: '1.8 mi',
-      note: 'New to Tailshift. License verified Sep 2026.', status: 'pending' },
+    { id: 'a3', name: 'Sam Torres', cred: 'RVT', initials: 'ST', placement: 4, dist: '1.8 mi',
+      note: 'All 4 placement shifts kept. License verified and background check cleared Sep 2026.', status: 'pending' },
   ];
   const pendingCount = () => applicants.filter(a => a.status === 'pending').length;
+  const PLACEMENT = 5;
+  const pipsHTML = n => `<span class="pips" aria-hidden="true">${Array.from({ length: PLACEMENT }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')}</span>`;
+  const standingHTML = a => a.placement != null
+    ? `<span class="placement">${pipsHTML(a.placement)}Placement · ${a.placement} of ${PLACEMENT} shifts</span>`
+    : `<span class="rel">${a.reliab}% reliable</span> · ${a.rating} · ${a.shifts} shifts`;
+  const standingText = a => a.placement != null ? `Placement · ${a.placement} of ${PLACEMENT} shifts` : `${a.reliab}% reliable · ${a.rating}`;
 
   const thread = [
     { from: 'clinic', text: 'Hi Maya, thanks for picking up Saturday. We have 3 dentals and a mass removal on the board.' },
@@ -1044,7 +1071,7 @@
             <div>
               <div class="ap-name"><b>${a.name}, ${a.cred}</b><span>${a.dist}</span></div>
               <div style="margin-top:3px">${tierHTML('cvt')}</div>
-              <div class="ap-meta"><span class="rel">${a.reliab}% reliable</span> · ${a.rating} · ${a.shifts} shifts</div>
+              <div class="ap-meta">${standingHTML(a)}</div>
               <div class="ap-note">${a.note}</div>
             </div>
           </div>
@@ -1070,7 +1097,7 @@
       title: `Confirm ${first} for this shift?`,
       sub: `${first} gets a confirmation right away, and messaging opens between you.`,
       summary: `
-        <div class="s-head"><div class="mono">${a.initials}</div><div><b>${a.name}, ${a.cred}</b><small>${a.reliab}% reliable · ${a.rating}</small></div></div>
+        <div class="s-head"><div class="mono">${a.initials}</div><div><b>${a.name}, ${a.cred}</b><small>${standingText(a)}</small></div></div>
         <dl>
           <div><dt>When</dt><dd>Tue, Oct 13, 8:00 AM – 6:00 PM</dd></div>
           <div><dt>Pay</dt><dd>$44/hr × 10 hrs = $440</dd></div>
@@ -1104,13 +1131,13 @@
     confirmBtn.disabled = true;
     clearTimeout(armTimer);
     armTimer = setTimeout(() => { confirmBtn.disabled = false; }, 450);
-    $('#sheetCancel').focus();
+    $('#sheetCancel').focus({ preventScroll: true });
   }
   function closeSheet() {
     sheet.classList.remove('open'); backdrop.classList.remove('open');
     sheet.setAttribute('aria-hidden', 'true');
     pending = null;
-    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
   }
   confirmBtn.addEventListener('click', () => {
     const p = pending;
