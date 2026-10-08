@@ -202,10 +202,13 @@
   .ap-status.muted { color: var(--ink-3); font-weight: 500; }
 
   /* Placement: first 5 shifts, no score yet */
-  .placement { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-weight: 600; }
-  .pips { display: inline-flex; gap: 2px; }
-  .pips i { width: 9px; height: 4px; border-radius: 2px; background: var(--tick-empty); }
-  .pips i.on { background: var(--ink-2); }
+  .placement { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-weight: 600; }
+  .pips { display: inline-flex; gap: 3px; }
+  .pips i { width: 14px; height: 10px; border-radius: 2px; background: var(--ok); }
+  .pips i.free { background: var(--tick-empty); }
+  .pips i.minor { background: var(--warn); }
+  .pips i.major { background: var(--danger); }
+  .pips i.todo { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line-strong); }
   .pl-row { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; padding: 11px 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
   .pl-row .ic { color: var(--ink-3); margin-top: 1px; }
   .pl-row b { color: var(--ink); font-weight: 600; }
@@ -319,7 +322,7 @@
   .score { font-family: var(--font-display); font-size: 30px; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
   .score small { font-size: 16px; color: var(--ink-3); font-weight: 700; }
   .ticks { display: grid; grid-template-columns: repeat(24, minmax(0, 1fr)); gap: 3px; margin: 12px 0 9px; }
-  .ticks i { height: 20px; border-radius: 2px; background: var(--brand); }
+  .ticks i { height: 20px; border-radius: 2px; background: var(--ok); }
   .ticks i.free { background: var(--tick-empty); }
   .ticks i.minor { background: var(--warn); }
   .ticks i.major { background: var(--danger); }
@@ -629,8 +632,8 @@
                 <button type="button" class="switch warm" role="switch" aria-checked="false" id="urgentSwitch" aria-label="Urgent"></button>
               </div>
               <div class="row">
-                <div class="txt"><b>Open to placement techs</b><small>Techs in their first 5 shifts at this tier. License and background already checked.</small></div>
-                <button type="button" class="switch" role="switch" aria-checked="true" aria-label="Open to placement techs" data-toggle></button>
+                <div class="txt"><b>Open to new techs</b><small>Techs in their first 5 shifts at this tier. License and background already checked.</small></div>
+                <button type="button" class="switch" role="switch" aria-checked="true" aria-label="Open to new techs" data-toggle></button>
               </div>
               <textarea class="notes" id="pNotes" placeholder="Notes for the tech, e.g. 3 dentals and a mass removal. Park in the back lot." aria-label="Notes for the tech"></textarea>
             </div>
@@ -729,7 +732,7 @@
             </div>
           </div>
           <div class="legend">
-            <span style="--c:var(--brand)">Kept</span>
+            <span style="--c:var(--ok)">Kept</span>
             <span style="--c:var(--tick-empty)">Cancelled 72+ hrs out</span>
             <span style="--c:var(--warn)">24–72 hrs</span>
             <span style="--c:var(--danger)">Under 24 hrs</span>
@@ -749,11 +752,11 @@
             <p class="rules-note">If a clinic cancels within 24 hours, the tech is paid 4 hours at the posted rate. Each side can appeal one documented emergency per quarter.</p>
           </div>
 
-          <div class="section">New accounts start in placement</div>
+          <div class="section">New accounts: the first 5 shifts</div>
           <div class="group">
-            <div class="pl-row"><svg class="ic"><use href="#i-clock"/></svg><span><b>No score for the first 5 shifts.</b> Profiles show "Placement · 2 of 5" instead of a percentage, for techs and clinics alike.</span></div>
+            <div class="pl-row"><svg class="ic"><use href="#i-clock"/></svg><span><b>No percentage yet.</b> Profiles show one bar per shift, colored by what happened, so you can judge the record yourself. Same for techs and clinics.<br><span class="placement" style="margin-top:6px"><span class="pips" aria-hidden="true"><i></i><i></i><i class="minor"></i><i></i><i class="todo"></i></span>New · 4 of 5 shifts</span></span></div>
             <div class="pl-row"><svg class="ic"><use href="#i-alert"/></svg><span><b>Everything still counts.</b> Late cancellations are recorded from day one, and a no-show appears on the profile right away.</span></div>
-            <div class="pl-row"><svg class="ic"><use href="#i-users"/></svg><span><b>Matched by caliber of work.</b> Placement techs see shifts at their own tier and skills, from clinics that opted in. They're paired with established clinics, and new clinics with established techs, so one side of every placement shift has a track record.</span></div>
+            <div class="pl-row"><svg class="ic"><use href="#i-users"/></svg><span><b>Matched by caliber of work.</b> New techs see shifts at their own tier and skills, from clinics that opted in. They're paired with established clinics, and new clinics with established techs, so one side of every shift has a track record.</span></div>
             <div class="pl-row"><svg class="ic"><use href="#i-info"/></svg><span><b>The first score is blended.</b> It starts from the platform average and moves toward your own record, so one early slip doesn't sink a new account.</span></div>
           </div>
 
@@ -880,16 +883,22 @@
       note: 'Worked here twice before. Has anesthesia and dentals.', status: 'pending' },
     { id: 'a2', name: 'Alex Petrov', cred: 'LVT', initials: 'AP', reliab: 94, rating: '★ 4.7 (58)', shifts: 61, dist: '6.0 mi',
       note: 'Has anesthesia and dentals. 2 late cancels this year.', status: 'pending' },
-    { id: 'a3', name: 'Sam Torres', cred: 'RVT', initials: 'ST', placement: 4, dist: '1.8 mi',
-      note: 'All 4 placement shifts kept. License verified and background check cleared Sep 2026.', status: 'pending' },
+    { id: 'a3', name: 'Sam Torres', cred: 'RVT', initials: 'ST', record: ['kept', 'kept', 'minor', 'kept'], dist: '1.8 mi',
+      note: 'Kept 3 of 4. Cancelled one 2 days ahead. License verified and background check cleared Sep 2026.', status: 'pending' },
   ];
   const pendingCount = () => applicants.filter(a => a.status === 'pending').length;
-  const PLACEMENT = 5;
-  const pipsHTML = n => `<span class="pips" aria-hidden="true">${Array.from({ length: PLACEMENT }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')}</span>`;
-  const standingHTML = a => a.placement != null
-    ? `<span class="placement">${pipsHTML(a.placement)}Placement · ${a.placement} of ${PLACEMENT} shifts</span>`
+  // New accounts: one bar per shift, colored by outcome, until there are enough shifts for a score.
+  const FIRST_SHIFTS = 5;
+  const OUTCOME = { kept: 'Kept', free: 'Cancelled 72+ hrs out', minor: 'Cancelled 24–72 hrs out', major: 'Cancelled under 24 hrs', todo: 'Not worked yet' };
+  function pipsHTML(record) {
+    const all = [...record, ...Array(Math.max(0, FIRST_SHIFTS - record.length)).fill('todo')];
+    const label = all.map(o => OUTCOME[o]).join(', ');
+    return `<span class="pips" role="img" aria-label="${label}" title="${label}">${all.map(o => `<i class="${o === 'kept' ? '' : o}"></i>`).join('')}</span>`;
+  }
+  const standingHTML = a => a.record
+    ? `<span class="placement">${pipsHTML(a.record)}New · ${a.record.length} of ${FIRST_SHIFTS} shifts</span>`
     : `<span class="rel">${a.reliab}% reliable</span> · ${a.rating} · ${a.shifts} shifts`;
-  const standingText = a => a.placement != null ? `Placement · ${a.placement} of ${PLACEMENT} shifts` : `${a.reliab}% reliable · ${a.rating}`;
+  const standingText = a => a.record ? `New · ${a.record.length} of ${FIRST_SHIFTS} shifts, ${a.record.filter(o => o === 'kept').length} kept` : `${a.reliab}% reliable · ${a.rating}`;
 
   const thread = [
     { from: 'clinic', text: 'Hi Maya, thanks for picking up Saturday. We have 3 dentals and a mass removal on the board.' },
