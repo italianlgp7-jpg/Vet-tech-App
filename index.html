@@ -1519,8 +1519,8 @@
 
   function techSteps() {
     const cred = {
-      cvt: { title: 'State license', sub: "Photo of your license. We check it against the state board's public lookup and recheck before it expires.", action: 'Upload', file: true,
-             result: () => `Active RVT license matched${uploadedName ? ` (${esc(uploadedName)})` : ''} · expires Mar 2027` },
+      cvt: { title: 'State license', sub: "Photo of your license. We check it against the state board's public lookup, keep the license number for rechecks, and delete the photo.", action: 'Upload', file: true,
+             result: () => `Active RVT license matched${uploadedName ? ` (${esc(uploadedName)})` : ''} · expires Mar 2027 · photo deleted` },
       va:  { title: 'Work history', sub: 'Two references from clinics you have worked at. An approved assistant certificate is optional.', action: 'Add', stays: true,
              result: () => 'References requested · usually back within a day' },
       stu: { title: 'Proof of enrollment', sub: 'Enrollment letter or student ID from an accredited vet tech program.', action: 'Upload', file: true,
@@ -1529,7 +1529,7 @@
     return [
       { id: 'tier', title: 'Credential type', sub: TIER_NAMES[techTier], fixed: 'done' },
       { id: 'cred', ...cred },
-      { id: 'idv', title: 'Photo ID and selfie', sub: 'Matches your face to your ID so nobody else can use your credential.', action: 'Start', result: () => 'Identity confirmed' },
+      { id: 'idv', title: 'Photo ID and selfie', sub: 'Matches your face to your ID so nobody else can use your credential. Both photos are deleted once you\'re verified.', action: 'Start', result: () => 'Identity confirmed · photos deleted' },
       { id: 'bg', title: 'Background check', sub: 'Runs with your consent. You get a copy of the report.', action: 'Consent', stays: true, result: () => 'In progress · usually 1–2 business days' },
       { id: 'pay', title: 'Payout and W-9', sub: 'Bank account for payouts and a W-9 for 1099 pay.', action: 'Add', result: () => 'Bank account ending 2290 · W-9 on file' },
     ];
