@@ -90,8 +90,8 @@
   .wordmark { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 800; font-size: 28px; letter-spacing: -.03em; margin: 0; }
   .wordmark .ic { width: 26px; height: 26px; color: var(--brand); fill: currentColor; stroke: none; }
   .lede-intro { color: var(--ink-2); font-size: 16px; line-height: 1.5; margin: 10px 0 22px; }
-  .role-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 3px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; margin-bottom: 18px; }
-  .role-switch button { border: 0; background: none; border-radius: 7px; padding: 7px 12px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+  .role-switch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 3px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; margin-bottom: 18px; }
+  .role-switch button { border: 0; background: none; border-radius: 7px; padding: 7px 6px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
   .role-switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
   .screen-nav { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); }
   .screen-nav button { display: block; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line-strong); padding: 11px 0; }
@@ -200,6 +200,41 @@
   .ap-actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 8px; margin-top: 12px; }
   .ap-status { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--ok); display: flex; gap: 6px; align-items: center; }
   .ap-status.muted { color: var(--ink-3); font-weight: 500; }
+
+  /* ---------- Sign-up and verification ---------- */
+  [data-mode="onboard"] .tabbar, [data-mode="onboard"] .composer { display: none !important; }
+  .welcome { padding-top: 22px; }
+  .welcome h1 { font-family: var(--font-display); font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1.05; margin: 30px 2px 10px; }
+  .welcome > p { color: var(--ink-2); font-size: 16px; line-height: 1.45; margin: 0 2px 26px; }
+  .choice { display: flex; gap: 14px; align-items: center; width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-group); padding: 16px; }
+  .choice + .choice { margin-top: 10px; }
+  .choice:hover { border-color: var(--brand); }
+  .choice .mono { width: 44px; height: 44px; }
+  .choice b { display: block; font-size: 16px; font-weight: 600; }
+  .choice small { color: var(--ink-3); font-size: 13.5px; }
+  .choice > .ic:last-child { margin-left: auto; color: var(--ink-3); }
+  .signin-line { text-align: center; margin-top: 22px; font-size: 14.5px; color: var(--ink-2); }
+  .textlink { background: none; border: 0; color: var(--brand); font-weight: 600; padding: 2px; font-size: inherit; }
+  .auth { display: grid; gap: 10px; }
+  .or { display: flex; align-items: center; gap: 10px; color: var(--ink-3); font-size: 13px; margin: 6px 0; }
+  .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--line-strong); }
+  .field-input { width: 100%; border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--r-btn); padding: 12px 14px; font-size: 16px; outline: none; }
+  .field-input:focus { border-color: var(--brand); }
+  .progress { height: 6px; border-radius: 3px; background: var(--tick-empty); overflow: hidden; margin: 0 2px 6px; }
+  .progress i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .3s; }
+  .progress-label { font-size: 13px; color: var(--ink-2); margin: 0 2px; }
+  .vstep { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 13px 14px; }
+  .vstep .st { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--line-strong); display: grid; place-items: center; font-size: 12px; font-weight: 700; color: var(--ink-3); align-self: start; margin-top: 1px; }
+  .vstep .st .ic { width: 14px; height: 14px; stroke-width: 2.6; }
+  .vstep[data-state="done"] .st { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .vstep[data-state="working"] .st, .vstep[data-state="checking"] .st { border-color: var(--warn); color: var(--warn); }
+  .vstep b { display: block; font-weight: 600; font-size: 15px; }
+  .vstep small { display: block; color: var(--ink-3); font-size: 12.5px; line-height: 1.4; margin-top: 2px; }
+  .vstep .result { color: var(--ok); font-weight: 600; }
+  .vstep .pending-note { color: var(--warn); font-weight: 600; }
+  .vstep .btn { padding: 8px 12px; font-size: 14px; }
+  .now-box { display: flex; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-group); padding: 12px 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; margin: 16px 0 12px; }
+  .now-box .ic { color: var(--ink-3); margin-top: 1px; }
 
   /* Placement: first 5 shifts, no score yet */
   .placement { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-weight: 600; }
@@ -448,7 +483,8 @@
     <h1 class="wordmark"><svg class="ic"><use href="#i-paw"/></svg>Tailshift</h1>
     <p class="lede-intro">Vet clinics post the shifts they can't cover. Techs nearby pick up the ones they want. Late cancellations count the same against either side.</p>
     <div class="role-switch" role="group" aria-label="Which side of the app">
-      <button aria-pressed="true" data-role-set="tech">Tech side</button>
+      <button aria-pressed="true" data-role-set="onboard">Sign-up</button>
+      <button aria-pressed="false" data-role-set="tech">Tech side</button>
       <button aria-pressed="false" data-role-set="clinic">Clinic side</button>
     </div>
     <ul class="screen-nav" id="screenNav"></ul>
@@ -464,12 +500,79 @@
       </div>
       <div class="demo-bar">
         <div class="role-switch" role="group" aria-label="Which side of the app">
-          <button aria-pressed="true" data-role-set="tech">Tech side</button>
+          <button aria-pressed="true" data-role-set="onboard">Sign-up</button>
+          <button aria-pressed="false" data-role-set="tech">Tech side</button>
           <button aria-pressed="false" data-role-set="clinic">Clinic side</button>
         </div>
       </div>
 
       <main class="views" id="views">
+
+        <!-- ================= SIGN-UP: Welcome ================= -->
+        <section class="view" id="view-welcome" aria-label="Welcome">
+          <div class="welcome">
+            <div class="wordmark"><svg class="ic"><use href="#i-paw"/></svg>Tailshift</div>
+            <h1>Relief shifts for vet teams</h1>
+            <p>Pick up shifts that fit your credential, or fill the ones your clinic can't cover.</p>
+            <button class="choice" data-start="tech"><span class="mono"><svg class="ic"><use href="#i-user"/></svg></span><span><b>I'm a vet tech or assistant</b><small>Find shifts near you</small></span><svg class="ic"><use href="#i-chev"/></svg></button>
+            <button class="choice" data-start="clinic"><span class="mono"><svg class="ic"><use href="#i-building"/></svg></span><span><b>I work at a clinic</b><small>Post shifts and book verified techs</small></span><svg class="ic"><use href="#i-chev"/></svg></button>
+            <p class="signin-line">Already on Tailshift? <button class="textlink" id="signinLink">Sign in</button></p>
+          </div>
+        </section>
+
+        <!-- ================= SIGN-UP: Account ================= -->
+        <section class="view" id="view-account" aria-label="Account">
+          <button class="backlink" data-go="welcome"><svg class="ic"><use href="#i-back"/></svg>Back</button>
+          <header class="vh">
+            <div class="eyebrow" id="acctEyebrow"></div>
+            <h1 id="acctTitle"></h1>
+            <p id="acctSub"></p>
+          </header>
+          <div class="auth">
+            <button class="btn btn-quiet btn-block" data-auth>Continue with Apple</button>
+            <button class="btn btn-quiet btn-block" data-auth>Continue with Google</button>
+            <div class="or">or</div>
+            <input class="field-input" type="email" id="acctEmail" placeholder="Email or mobile number" aria-label="Email or mobile number" autocomplete="off">
+            <button class="btn btn-primary btn-block" data-auth>Send me a code</button>
+          </div>
+          <p class="hint" style="margin:12px 2px 0">No passwords. We send a 6-digit code each time you sign in on a new device.</p>
+        </section>
+
+        <!-- ================= SIGN-UP: Tech verification ================= -->
+        <section class="view" id="view-t-verify" aria-label="Get verified">
+          <header class="vh">
+            <div class="eyebrow">Step 2 of 2 · Vet tech account</div>
+            <h1>Get verified</h1>
+            <p>Clinics only book verified techs. Most people finish this in about 10 minutes.</p>
+          </header>
+          <div class="progress"><i id="tProgBar"></i></div>
+          <p class="progress-label" id="tProgLabel"></p>
+          <span class="label" id="vTierLabel">Which describes you?</span>
+          <div class="group" role="radiogroup" aria-labelledby="vTierLabel">
+            <button type="button" class="radio-row" role="radio" aria-checked="true" data-vtier="cvt"><span class="radio"></span><span><span class="tier"><span class="meter" data-level="3"><i></i><i></i><i></i></span>Credentialed tech</span><small>You hold an LVT, RVT, CVT or LVMT credential.</small></span></button>
+            <button type="button" class="radio-row" role="radio" aria-checked="false" data-vtier="va"><span class="radio"></span><span><span class="tier"><span class="meter" data-level="2"><i></i><i></i><i></i></span>Veterinary assistant</span><small>No state credential, with clinic experience.</small></span></button>
+            <button type="button" class="radio-row" role="radio" aria-checked="false" data-vtier="stu"><span class="radio"></span><span><span class="tier"><span class="meter" data-level="1"><i></i><i></i><i></i></span>Student or uncredentialed tech</span><small>In a vet tech program, or working without a credential where your state allows it.</small></span></button>
+          </div>
+          <span class="label">Checklist</span>
+          <div class="group" id="tSteps"></div>
+          <div class="now-box"><svg class="ic"><use href="#i-info"/></svg><span id="tNow"></span></div>
+          <button class="btn btn-primary btn-block" data-enter="tech" id="tEnter"></button>
+        </section>
+
+        <!-- ================= SIGN-UP: Clinic verification ================= -->
+        <section class="view" id="view-c-verify" aria-label="Verify your clinic">
+          <header class="vh">
+            <div class="eyebrow">Step 2 of 2 · Clinic account</div>
+            <h1>Verify your clinic</h1>
+            <p>Techs only see shifts from verified clinics. This proves the clinic is real and that you're allowed to post for it.</p>
+          </header>
+          <div class="progress"><i id="cProgBar"></i></div>
+          <p class="progress-label" id="cProgLabel"></p>
+          <span class="label">Checklist</span>
+          <div class="group" id="cSteps"></div>
+          <div class="now-box"><svg class="ic"><use href="#i-info"/></svg><span id="cNow"></span></div>
+          <button class="btn btn-primary btn-block" data-enter="clinic" id="cEnter"></button>
+        </section>
 
         <!-- ================= TECH: Open shifts ================= -->
         <section class="view" id="view-browse" aria-label="Open shifts">
@@ -842,7 +945,10 @@
     },
   };
   let role = 'tech';
-  let current = 'browse';
+  let mode = 'onboard';
+  let current = 'welcome';
+  const ONBOARD_NAV = [['welcome', 'Welcome', 'Pick tech or clinic'], ['account', 'Create account', 'Sign up or sign in, no passwords'],
+    ['t-verify', 'Tech verification', 'Checklist changes with credential type'], ['c-verify', 'Clinic verification', 'Proves the clinic is real']];
   const unread = { tech: 2, clinic: 0 };
 
   /* ---------- Data ---------- */
@@ -1215,7 +1321,8 @@
     }).join('');
   }
   function renderNav() {
-    $('#screenNav').innerHTML = ROLES[role].nav.map(([v, b, s]) =>
+    const nav = mode === 'onboard' ? ONBOARD_NAV : ROLES[role].nav;
+    $('#screenNav').innerHTML = nav.map(([v, b, s]) =>
       `<li><button data-go="${v}" aria-current="${v === current}"><b>${b}</b><small>${s}</small></button></li>`).join('');
   }
 
@@ -1236,10 +1343,13 @@
   });
 
   function setRole(r) {
-    role = r;
-    document.documentElement.dataset.role = r;
+    mode = r === 'onboard' ? 'onboard' : 'app';
+    document.documentElement.dataset.mode = mode;
     $$('[data-role-set]').forEach(b => b.setAttribute('aria-pressed', b.dataset.roleSet === r));
     if (sheet.classList.contains('open')) closeSheet();
+    if (mode === 'onboard') { $('#toast').classList.remove('show'); go('welcome'); return; }
+    role = r;
+    document.documentElement.dataset.role = r;
     $('#toast').classList.remove('show');
     renderThread(); renderQuick();
     go(ROLES[r].home);
@@ -1260,9 +1370,9 @@
     b.setAttribute('aria-pressed', postState.skills.has(k));
     updatePreview();
   });
-  $$('.radio-row').forEach(o => o.addEventListener('click', () => {
+  $$('#postForm .radio-row').forEach(o => o.addEventListener('click', () => {
     postState.tier = o.dataset.tier;
-    $$('.radio-row').forEach(x => x.setAttribute('aria-checked', x === o));
+    $$('#postForm .radio-row').forEach(x => x.setAttribute('aria-checked', x === o));
     $('#rateHint').innerHTML = `Clinics near you pay <b>${TIERS[postState.tier].range}</b> for this tier.`;
     updatePreview();
   }));
@@ -1351,9 +1461,131 @@
     el.innerHTML = Array.from({ length: 24 }, (_, i) => `<i class="${marks[i] || ''}"></i>`).join('');
   });
 
+  /* ---------- Sign-up and verification ---------- */
+  let startSide = 'tech', accountMode = 'signup', techTier = 'cvt', uploadedName = '';
+  const vstate = { tech: { cred: 'todo', idv: 'todo', bg: 'todo', pay: 'todo' }, clinic: { work: 'todo', dvm: 'todo', biz: 'todo', ins: 'todo' } };
+  const esc = t => t.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const TIER_NAMES = { cvt: 'Credentialed tech', va: 'Veterinary assistant', stu: 'Student or uncredentialed tech' };
+
+  function techSteps() {
+    const cred = {
+      cvt: { title: 'State license', sub: "Photo of your license. We check it against the state board's public lookup and recheck before it expires.", action: 'Upload', file: true,
+             result: () => `Active RVT license matched${uploadedName ? ` (${esc(uploadedName)})` : ''} · expires Mar 2027` },
+      va:  { title: 'Work history', sub: 'Two references from clinics you have worked at. An approved assistant certificate is optional.', action: 'Add', stays: true,
+             result: () => 'References requested · usually back within a day' },
+      stu: { title: 'Proof of enrollment', sub: 'Enrollment letter or student ID from an accredited vet tech program.', action: 'Upload', file: true,
+             result: () => `Enrollment confirmed${uploadedName ? ` (${esc(uploadedName)})` : ''}` },
+    }[techTier];
+    return [
+      { id: 'tier', title: 'Credential type', sub: TIER_NAMES[techTier], fixed: 'done' },
+      { id: 'cred', ...cred },
+      { id: 'idv', title: 'Photo ID and selfie', sub: 'Matches your face to your ID so nobody else can use your credential.', action: 'Start', result: () => 'Identity confirmed' },
+      { id: 'bg', title: 'Background check', sub: 'Runs with your consent. You get a copy of the report.', action: 'Consent', stays: true, result: () => 'In progress · usually 1–2 business days' },
+      { id: 'pay', title: 'Payout and W-9', sub: 'Bank account for payouts and a W-9 for 1099 pay.', action: 'Add', result: () => 'Bank account ending 2290 · W-9 on file' },
+    ];
+  }
+  function clinicSteps() {
+    return [
+      { id: 'find', title: 'Your clinic', sub: 'Riverbend Animal Hospital, 2140 SE Division St, Portland. Matched to its public business listing.', fixed: 'done' },
+      { id: 'work', title: 'Show you work there', sub: "We call the clinic's listed phone number with a 6-digit code. A work email at the clinic's domain also works.", action: 'Call clinic',
+        result: () => 'Confirmed by phone · (503) 555-0142' },
+      { id: 'dvm', title: 'Supervising veterinarian', sub: 'License of the vet who supervises techs on shift. Checked with the state board.', action: 'Add',
+        result: () => 'Dr. Priya Shah, DVM · active license' },
+      { id: 'biz', title: 'Business and payout', sub: 'Legal business name, EIN and a bank account, so techs are paid on time.', action: 'Add',
+        result: () => 'EIN matched · bank account ending 4417' },
+      { id: 'ins', title: 'Liability insurance', sub: 'Optional. Shown to techs as a badge on your shifts.', action: 'Upload', file: true,
+        result: () => 'Certificate on file' },
+    ];
+  }
+
+  function vstepHTML(side, st, i) {
+    const state = st.fixed || vstate[side][st.id];
+    const mark = state === 'done' ? icon('check') : (state === 'working' || state === 'checking') ? icon('clock') : i + 1;
+    let sub = st.sub, action = '';
+    if (state === 'working') sub = `<span class="pending-note">Checking…</span>`;
+    else if (state === 'checking') sub = `<span class="pending-note">${st.result()}</span>`;
+    else if (state === 'done' && !st.fixed) sub = `<span class="result">${st.result()}</span>`;
+    if (state === 'todo') {
+      const key = `${side}:${st.id}`;
+      action = st.file
+        ? `<label class="btn btn-quiet">${st.action}<input type="file" accept="image/*,.pdf" data-file="${key}" hidden></label>`
+        : `<button class="btn btn-quiet" data-vstep="${key}">${st.action}</button>`;
+      if (st.file) sub += ` <button class="textlink" data-vstep="${key}">Use a sample</button>`;
+    }
+    return `<div class="vstep" data-state="${state}"><span class="st">${mark}</span><div><b>${st.title}</b><small>${sub}</small></div>${action}</div>`;
+  }
+
+  function renderVerify() {
+    [['tech', techSteps(), 't'], ['clinic', clinicSteps(), 'c']].forEach(([side, steps, p]) => {
+      $(`#${p}Steps`).innerHTML = steps.map((st, i) => vstepHTML(side, st, i)).join('');
+      const states = steps.map(st => st.fixed || vstate[side][st.id]);
+      const done = states.filter(x => x === 'done').length;
+      const checking = states.filter(x => x === 'working' || x === 'checking').length;
+      $(`#${p}ProgBar`).style.width = `${(done / steps.length) * 100}%`;
+      $(`#${p}ProgLabel`).textContent = `${done} of ${steps.length} done${checking ? ` · ${checking} being checked` : ''}`;
+    });
+    const t = vstate.tech, techReady = t.cred === 'done' && t.idv === 'done' && t.pay === 'done';
+    $('#tNow').textContent = !techReady
+      ? 'You can browse shifts right away. Requesting opens once your credential, ID and payout are set up and your background check clears.'
+      : 'Almost there. Requesting opens when your background check clears, usually 1–2 business days.';
+    $('#tEnter').textContent = 'Browse shifts while we check';
+    const c = vstate.clinic, clinicReady = c.work === 'done' && c.dvm === 'done' && c.biz === 'done';
+    $('#cNow').textContent = clinicReady
+      ? 'Verified. Shifts you post go live to techs right away.'
+      : 'You can draft shifts now. They go live to techs once steps 2–4 are verified.';
+    $('#cEnter').textContent = clinicReady ? 'Go to your dashboard' : 'Explore the dashboard while we check';
+  }
+
+  function startCheck(key) {
+    const [side, id] = key.split(':');
+    if (vstate[side][id] !== 'todo') return;
+    vstate[side][id] = 'working';
+    renderVerify();
+    setTimeout(() => {
+      const st = (side === 'tech' ? techSteps() : clinicSteps()).find(x => x.id === id);
+      vstate[side][id] = st && st.stays ? 'checking' : 'done';
+      renderVerify();
+    }, 1300);
+  }
+  document.addEventListener('click', e => {
+    const v = e.target.closest('[data-vstep]');
+    if (v) return startCheck(v.dataset.vstep);
+    const t = e.target.closest('[data-vtier]');
+    if (t) {
+      techTier = t.dataset.vtier;
+      $$('[data-vtier]').forEach(x => x.setAttribute('aria-checked', x === t));
+      vstate.tech.cred = 'todo'; uploadedName = '';
+      return renderVerify();
+    }
+    const s = e.target.closest('[data-start]');
+    if (s) { startSide = s.dataset.start; accountMode = 'signup'; renderAccount(); return go('account'); }
+    if (e.target.closest('#signinLink')) { accountMode = 'signin'; renderAccount(); return go('account'); }
+    if (e.target.closest('[data-auth]')) {
+      if (accountMode === 'signin') { setRole('tech'); return toast('Signed in. Returning users land on their own side automatically.'); }
+      return go(startSide === 'tech' ? 't-verify' : 'c-verify');
+    }
+    const en = e.target.closest('[data-enter]');
+    if (en) setRole(en.dataset.enter);
+  });
+  document.addEventListener('change', e => {
+    const f = e.target.closest('[data-file]');
+    if (!f || !f.files[0]) return;
+    if (f.dataset.file === 'tech:cred') uploadedName = f.files[0].name;
+    startCheck(f.dataset.file);
+  });
+  function renderAccount() {
+    const copy = accountMode === 'signin'
+      ? ['Welcome back', 'Sign in', "You'll land on your side of the app. There's no need to pick tech or clinic again."]
+      : startSide === 'tech'
+        ? ['Step 1 of 2 · Vet tech account', 'Create your account', "Next you'll verify your credential. You can browse shifts while that happens."]
+        : ['Step 1 of 2 · Clinic account', 'Create your account', "Next you'll verify your clinic. You can draft shifts while that happens."];
+    $('#acctEyebrow').textContent = copy[0]; $('#acctTitle').textContent = copy[1]; $('#acctSub').textContent = copy[2];
+  }
+
   /* ---------- Start ---------- */
-  renderShifts(); renderMine(); renderPosted(); renderApplicants(); updatePreview();
-  setRole('tech');
+  renderShifts(); renderMine(); renderPosted(); renderApplicants(); updatePreview(); renderAccount(); renderVerify();
+  renderThread(); renderQuick();
+  setRole('onboard');
 </script>
 </body>
 </html>
