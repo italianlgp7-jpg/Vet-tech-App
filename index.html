@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tailshift — Vet Relief Staffing</title>
+<meta name="description" content="Tailshift mockup: a relief staffing marketplace connecting veterinary hospitals with vet techs for surge and last-minute shifts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF6EE;
+    --cream-2: #F5EDE1;
+    --paper: #FFFFFF;
+    --ink: #2A2420;
+    --ink-2: #62574F;
+    --ink-3: #958A80;
+    --line: #EDE3D6;
+
+    --teal: #1E6F68;
+    --teal-dark: #14524D;
+    --teal-soft: #E2F0ED;
+    --apricot: #F29E4C;
+    --apricot-ink: #9A5410;
+    --apricot-soft: #FDEEDC;
+    --coral: #D9573F;
+    --coral-soft: #FBE5DF;
+    --plum: #7356A0;
+    --plum-soft: #EEE7F7;
+    --gold: #F2B43A;
+    --green: #2F8F5B;
+
+    --r-sm: 10px;
+    --r-md: 16px;
+    --r-lg: 22px;
+    --shadow-card: 0 1px 2px rgba(60, 40, 20, .05), 0 6px 18px rgba(60, 40, 20, .07);
+    --shadow-pop: 0 20px 50px rgba(40, 25, 10, .25);
+    --font: "Nunito", ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: var(--font);
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #FDE7CF 0%, transparent 60%),
+      radial-gradient(900px 600px at 110% 110%, #D9ECE7 0%, transparent 55%),
+      var(--cream);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--apricot); outline-offset: 2px; border-radius: 8px; }
+
+  .ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -3px; }
+  .ic.fill { fill: currentColor; stroke: none; }
+
+  /* ---------- Stage (desktop presentation) ---------- */
+  .stage {
+    display: flex; gap: 56px; align-items: center; justify-content: center;
+    flex-wrap: wrap; padding: 40px 24px; min-height: 100vh;
+  }
+  .intro { max-width: 360px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center;
+    background: linear-gradient(140deg, var(--teal), #2C8C7F); color: #fff;
+    box-shadow: 0 8px 20px rgba(30, 111, 104, .3);
+  }
+  .brand-mark .ic { width: 28px; height: 28px; }
+  .brand h1 { font-size: 30px; font-weight: 900; letter-spacing: -.5px; margin: 0; }
+  .brand h1 span { color: var(--apricot); }
+  .intro .tagline { font-size: 18px; line-height: 1.45; color: var(--ink-2); margin: 16px 0 24px; }
+  .intro .tagline strong { color: var(--ink); }
+  .screen-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .screen-list button {
+    width: 100%; text-align: left; display: flex; gap: 12px; align-items: center;
+    background: rgba(255,255,255,.7); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 12px 14px; transition: transform .15s, background .15s, border-color .15s;
+  }
+  .screen-list button:hover { background: #fff; transform: translateX(3px); }
+  .screen-list button[aria-current="true"] { background: #fff; border-color: var(--teal); box-shadow: var(--shadow-card); }
+  .screen-list .sl-ic { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; background: var(--teal-soft); color: var(--teal); flex: none; }
+  .screen-list b { display: block; font-size: 15px; }
+  .screen-list small { color: var(--ink-3); font-size: 13px; }
+  .role-tag { margin-left: auto; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .4px; }
+  .role-tag.tech { background: var(--teal-soft); color: var(--teal-dark); }
+  .role-tag.hosp { background: var(--apricot-soft); color: var(--apricot-ink); }
+  .role-tag.both { background: var(--plum-soft); color: var(--plum); }
+  .intro .fineprint { font-size: 12.5px; color: var(--ink-3); margin-top: 18px; line-height: 1.5; }
+
+  /* ---------- Phone frame ---------- */
+  .phone {
+    width: 390px; height: 844px; flex: none;
+    background: #1D1915; border-radius: 54px; padding: 12px;
+    box-shadow: var(--shadow-pop), inset 0 0 0 2px #3A332C;
+    position: relative;
+  }
+  .screen {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    border-radius: 43px; background: var(--cream);
+    display: flex; flex-direction: column;
+  }
+  .statusbar {
+    height: 46px; flex: none; display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 28px 0 34px; font-weight: 800; font-size: 15px; position: relative; z-index: 3;
+  }
+  .statusbar .notch { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); width: 112px; height: 30px; background: #1D1915; border-radius: 20px; }
+  .statusbar .sb-icons { display: flex; gap: 6px; align-items: center; }
+  .statusbar .sb-icons i { display: block; background: var(--ink); border-radius: 2px; }
+
+  .views { flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; scrollbar-width: none; }
+  .views::-webkit-scrollbar { display: none; }
+  .view { display: none; padding: 4px 18px 110px; animation: fadeUp .28s ease; }
+  .view.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- Shared UI ---------- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 6px 0 14px; }
+  .topbar h2 { font-size: 26px; font-weight: 900; letter-spacing: -.4px; margin: 0; }
+  .topbar p { margin: 2px 0 0; color: var(--ink-2); font-size: 14px; }
+  .view-pill { font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 99px; white-space: nowrap; text-transform: uppercase; letter-spacing: .4px; }
+  .view-pill.tech { background: var(--teal-soft); color: var(--teal-dark); }
+  .view-pill.hosp { background: var(--apricot-soft); color: var(--apricot-ink); }
+
+  .card { background: var(--paper); border-radius: var(--r-lg); box-shadow: var(--shadow-card); padding: 16px; }
+  .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--ink-3); margin: 22px 4px 10px; }
+  .muted { color: var(--ink-3); }
+
+  .btn {
+    border: 0; border-radius: 14px; padding: 13px 18px; font-weight: 800; font-size: 15.5px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform .08s, background .15s, box-shadow .15s, opacity .15s;
+  }
+  .btn:active:not(:disabled) { transform: scale(.98); }
+  .btn-block { width: 100%; }
+  .btn-primary { background: var(--teal); color: #fff; box-shadow: 0 6px 14px rgba(30,111,104,.28); }
+  .btn-primary:hover:not(:disabled) { background: var(--teal-dark); }
+  .btn-primary:disabled { opacity: .55; cursor: default; box-shadow: none; }
+  .btn-ghost { background: var(--cream-2); color: var(--ink); }
+  .btn-ghost:hover { background: #EEE3D3; }
+  .btn-requested { background: var(--teal-soft); color: var(--teal-dark); cursor: default; }
+  .btn-accent { background: var(--apricot); color: #3B2208; box-shadow: 0 6px 14px rgba(242,158,76,.35); }
+  .btn-accent:hover { background: #EC9038; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12.5px; font-weight: 700; padding: 5px 10px; border-radius: 99px; background: var(--cream-2); color: var(--ink-2); }
+
+  /* Credential tier badges */
+  .tier { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 800; padding: 5px 10px; border-radius: 99px; }
+  .tier::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .tier-1 { background: var(--teal-soft); color: var(--teal-dark); }
+  .tier-2 { background: var(--apricot-soft); color: var(--apricot-ink); }
+  .tier-3 { background: var(--plum-soft); color: var(--plum); }
+
+  .avatar {
+    --c: var(--teal);
+    width: 44px; height: 44px; border-radius: 14px; flex: none; display: grid; place-items: center;
+    font-weight: 900; font-size: 15px; color: #fff; background: var(--c);
+    background-image: linear-gradient(145deg, rgba(255,255,255,.18), transparent);
+  }
+
+  /* ---------- Browse ---------- */
+  .greet h2 { font-size: 24px; }
+  .search {
+    display: flex; align-items: center; gap: 10px; background: var(--paper); border-radius: 14px;
+    padding: 12px 14px; box-shadow: var(--shadow-card); color: var(--ink-3);
+  }
+  .search input { border: 0; outline: 0; flex: 1; background: transparent; font-size: 15px; color: var(--ink); min-width: 0; }
+  .filter-row { display: flex; gap: 8px; overflow-x: auto; margin: 14px -18px 4px; padding: 2px 18px 6px; scrollbar-width: none; }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter {
+    flex: none; border: 1.5px solid var(--line); background: var(--paper); border-radius: 99px;
+    padding: 8px 14px; font-size: 13.5px; font-weight: 800; color: var(--ink-2);
+  }
+  .filter[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  .shift-list { display: grid; gap: 14px; margin-top: 10px; }
+  .shift-card { background: var(--paper); border-radius: var(--r-lg); box-shadow: var(--shadow-card); padding: 16px; display: grid; gap: 12px; position: relative; }
+  .shift-card.is-urgent { box-shadow: var(--shadow-card), inset 0 0 0 2px var(--coral-soft); }
+  .sc-head { display: flex; gap: 12px; align-items: center; }
+  .sc-clinic { flex: 1; min-width: 0; }
+  .sc-clinic h3 { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.2; }
+  .sc-clinic p { margin: 3px 0 0; font-size: 13px; color: var(--ink-3); font-weight: 600; }
+  .star { color: var(--gold); }
+  .reliab-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 800; color: var(--green); background: #E6F4EC; padding: 4px 8px; border-radius: 99px; white-space: nowrap; }
+  .reliab-chip .ic { width: 13px; height: 13px; }
+  .urgent-tag { position: absolute; top: -9px; right: 16px; background: var(--coral); color: #fff; font-size: 11.5px; font-weight: 900; padding: 4px 10px; border-radius: 99px; display: inline-flex; gap: 4px; align-items: center; letter-spacing: .3px; text-transform: uppercase; }
+  .urgent-tag .ic { width: 12px; height: 12px; }
+  .sc-when { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; font-weight: 700; color: var(--ink-2); }
+  .sc-when div { display: inline-flex; align-items: center; gap: 6px; }
+  .sc-when .ic { width: 16px; height: 16px; color: var(--teal); }
+  .sc-pay { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; background: var(--cream); border-radius: 12px; padding: 10px 12px; }
+  .sc-pay strong { font-size: 24px; font-weight: 900; letter-spacing: -.5px; }
+  .sc-pay span { color: var(--ink-3); font-weight: 700; }
+  .sc-pay .est { font-size: 13px; font-weight: 700; color: var(--ink-2); text-align: right; }
+  .eligible { font-size: 12.5px; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 5px; margin-top: -4px; }
+  .eligible .ic { width: 14px; height: 14px; }
+
+  /* ---------- Bottom sheet ---------- */
+  .backdrop { position: absolute; inset: 0; background: rgba(30, 20, 10, .42); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 20; }
+  .backdrop.open { opacity: 1; pointer-events: auto; }
+  .sheet {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 21;
+    background: var(--paper); border-radius: 28px 28px 0 0; padding: 10px 20px 28px;
+    transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1);
+    box-shadow: 0 -10px 30px rgba(0,0,0,.12);
+  }
+  .sheet.open { transform: none; }
+  .sheet-handle { width: 44px; height: 5px; border-radius: 9px; background: var(--line); margin: 0 auto 14px; }
+  .sheet h2 { margin: 0; font-size: 22px; font-weight: 900; }
+  .sheet > p { margin: 6px 0 16px; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; }
+  .summary { border: 1.5px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .summary .sum-head { display: flex; gap: 12px; align-items: center; padding: 12px 14px; background: var(--cream); }
+  .summary .sum-head b { font-size: 15.5px; }
+  .summary dl { margin: 0; padding: 4px 14px; }
+  .summary dl div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; }
+  .summary dl div:last-child { border-bottom: 0; }
+  .summary dt { color: var(--ink-3); font-weight: 700; }
+  .summary dd { margin: 0; font-weight: 800; text-align: right; }
+  .notice { display: flex; gap: 10px; background: var(--apricot-soft); color: #6E3C0B; border-radius: 14px; padding: 12px; font-size: 13.5px; line-height: 1.45; margin: 14px 0 18px; }
+  .notice .ic { color: var(--apricot-ink); margin-top: 1px; }
+  .sheet-actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: absolute; left: 16px; right: 16px; bottom: 96px; z-index: 30;
+    background: var(--ink); color: #fff; border-radius: 16px; padding: 13px 16px;
+    display: flex; gap: 10px; align-items: center; font-weight: 700; font-size: 14.5px;
+    transform: translateY(20px); opacity: 0; pointer-events: none; transition: all .25s;
+  }
+  .toast.show { transform: none; opacity: 1; }
+  .toast .ic { color: #8FD9B6; }
+
+  /* ---------- Tab bar ---------- */
+  .tabbar {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 10;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    background: rgba(255,255,255,.94); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line); padding: 8px 6px 24px;
+  }
+  .tab { background: none; border: 0; display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 800; color: var(--ink-3); padding: 4px 0; position: relative; }
+  .tab .ic { width: 23px; height: 23px; }
+  .tab[aria-current="page"] { color: var(--teal); }
+  .tab .tab-post { width: 44px; height: 44px; margin-top: -18px; border-radius: 16px; display: grid; place-items: center; background: var(--apricot); color: #3B2208; box-shadow: 0 8px 18px rgba(242,158,76,.45); }
+  .tab .tab-post .ic { width: 24px; height: 24px; stroke-width: 2.6; }
+  .tab[aria-current="page"] .tab-post { background: var(--teal); color: #fff; box-shadow: 0 8px 18px rgba(30,111,104,.35); }
+  .badge { position: absolute; top: 0; left: 52%; background: var(--coral); color: #fff; font-size: 10px; font-weight: 900; min-width: 17px; height: 17px; border-radius: 99px; display: grid; place-items: center; padding: 0 4px; border: 2px solid #fff; }
+
+  /* ---------- Post shift (hospital) ---------- */
+  .clinic-strip { display: flex; align-items: center; gap: 12px; background: var(--paper); border-radius: var(--r-md); padding: 12px 14px; box-shadow: var(--shadow-card); }
+  .clinic-strip b { display: block; font-size: 15px; }
+  .clinic-strip small { color: var(--ink-3); font-weight: 700; }
+  .form { display: grid; gap: 16px; }
+  .field label, .field .label { display: block; font-size: 13.5px; font-weight: 800; color: var(--ink-2); margin: 0 0 7px 2px; }
+  .input {
+    width: 100%; border: 1.5px solid var(--line); background: var(--paper); border-radius: 13px;
+    padding: 12px 13px; font-size: 15.5px; font-weight: 700; outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  .input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px var(--teal-soft); }
+  textarea.input { resize: none; min-height: 74px; font-weight: 600; line-height: 1.4; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .money { position: relative; }
+  .money .input { padding-left: 30px; padding-right: 46px; font-size: 20px; font-weight: 900; }
+  .money .pre, .money .post { position: absolute; top: 50%; transform: translateY(-50%); font-weight: 800; color: var(--ink-3); }
+  .money .pre { left: 14px; font-size: 18px; }
+  .money .post { right: 14px; font-size: 14px; }
+  .range { width: 100%; accent-color: var(--teal); margin: 10px 0 2px; }
+  .hint { font-size: 12.5px; color: var(--ink-3); font-weight: 700; margin: 6px 2px 0; }
+  .hint b { color: var(--teal-dark); }
+
+  .tier-picker { display: grid; gap: 8px; }
+  .tier-opt {
+    display: flex; gap: 12px; align-items: center; text-align: left; width: 100%;
+    border: 1.5px solid var(--line); background: var(--paper); border-radius: 14px; padding: 11px 12px;
+  }
+  .tier-opt .dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); flex: none; display: grid; place-items: center; }
+  .tier-opt b { display: block; font-size: 14.5px; }
+  .tier-opt small { color: var(--ink-3); font-weight: 600; font-size: 12.5px; line-height: 1.35; display: block; }
+  .tier-opt[aria-checked="true"] { border-color: var(--tc); background: var(--tbg); }
+  .tier-opt[aria-checked="true"] .dot { border-color: var(--tc); }
+  .tier-opt[aria-checked="true"] .dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--tc); }
+  .tier-opt[data-tier="cvt"] { --tc: var(--teal); --tbg: var(--teal-soft); }
+  .tier-opt[data-tier="va"]  { --tc: var(--apricot-ink); --tbg: var(--apricot-soft); }
+  .tier-opt[data-tier="stu"] { --tc: var(--plum); --tbg: var(--plum-soft); }
+
+  .skill-toggle { border: 1.5px solid var(--line); background: var(--paper); border-radius: 99px; padding: 7px 12px; font-size: 13px; font-weight: 800; color: var(--ink-2); display: inline-flex; gap: 5px; align-items: center; }
+  .skill-toggle .ic { width: 14px; height: 14px; display: none; }
+  .skill-toggle[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .skill-toggle[aria-pressed="true"] .ic { display: inline; }
+
+  .switch-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; background: var(--paper); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .switch-row b { display: block; font-size: 14.5px; }
+  .switch-row small { color: var(--ink-3); font-weight: 600; font-size: 12.5px; }
+  .switch { position: relative; width: 50px; height: 30px; flex: none; border: 0; border-radius: 99px; background: #DCD2C5; padding: 0; transition: background .2s; }
+  .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.2); transition: transform .2s; }
+  .switch[aria-checked="true"] { background: var(--coral); }
+  .switch.teal[aria-checked="true"] { background: var(--teal); }
+  .switch[aria-checked="true"]::after { transform: translateX(20px); }
+
+  .preview-wrap { background: repeating-linear-gradient(-45deg, var(--cream-2) 0 10px, var(--cream) 10px 20px); border-radius: var(--r-lg); padding: 14px; }
+  .preview-wrap .label { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: var(--ink-3); margin-bottom: 10px; }
+  .cost { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: var(--ink-2); padding: 0 4px; }
+  .cost b { color: var(--ink); }
+
+  /* ---------- Messages ---------- */
+  .chat-head { display: flex; align-items: center; gap: 10px; margin: 4px 0 12px; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 13px; border: 0; background: var(--paper); box-shadow: var(--shadow-card); display: grid; place-items: center; color: var(--ink); flex: none; }
+  .chat-head .who { flex: 1; min-width: 0; }
+  .chat-head .who b { display: block; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat-head .who small { color: var(--green); font-weight: 700; font-size: 12.5px; display: flex; align-items: center; gap: 5px; }
+  .chat-head .who small::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+  .confirmed {
+    background: linear-gradient(135deg, var(--teal), #2A8A7E); color: #fff; border-radius: var(--r-md);
+    padding: 12px 14px; display: flex; gap: 12px; align-items: center;
+  }
+  .confirmed .ck { width: 34px; height: 34px; border-radius: 11px; background: rgba(255,255,255,.18); display: grid; place-items: center; flex: none; }
+  .confirmed b { display: block; font-size: 14.5px; }
+  .confirmed small { opacity: .88; font-weight: 600; font-size: 12.5px; }
+  .confirmed a { margin-left: auto; color: #fff; font-size: 12.5px; font-weight: 800; background: rgba(255,255,255,.18); padding: 6px 10px; border-radius: 99px; text-decoration: none; white-space: nowrap; }
+  .thread { display: flex; flex-direction: column; gap: 8px; padding: 14px 0 70px; }
+  .sys { align-self: center; font-size: 12px; font-weight: 700; color: var(--ink-3); background: var(--cream-2); padding: 5px 12px; border-radius: 99px; display: inline-flex; gap: 6px; align-items: center; text-align: center; }
+  .sys .ic { width: 13px; height: 13px; }
+  .msg { max-width: 80%; padding: 10px 13px; border-radius: 18px; font-size: 14.5px; line-height: 1.4; font-weight: 600; animation: fadeUp .2s ease; }
+  .msg.them { align-self: flex-start; background: var(--paper); box-shadow: var(--shadow-card); border-bottom-left-radius: 6px; }
+  .msg.me { align-self: flex-end; background: var(--teal); color: #fff; border-bottom-right-radius: 6px; }
+  .msg time { display: block; font-size: 11px; font-weight: 700; opacity: .6; margin-top: 3px; }
+  .composer { position: absolute; left: 0; right: 0; bottom: 78px; z-index: 9; padding: 8px 14px 10px; background: linear-gradient(to top, var(--cream) 70%, transparent); display: none; }
+  .composer.show { display: block; }
+  .quick { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 8px; }
+  .quick::-webkit-scrollbar { display: none; }
+  .quick button { flex: none; border: 1.5px solid var(--line); background: var(--paper); border-radius: 99px; padding: 6px 11px; font-size: 12.5px; font-weight: 800; color: var(--ink-2); }
+  .compose-row { display: flex; gap: 8px; align-items: center; }
+  .compose-row input { flex: 1; min-width: 0; border: 1.5px solid var(--line); background: var(--paper); border-radius: 99px; padding: 11px 16px; font-size: 15px; outline: none; }
+  .compose-row input:focus { border-color: var(--teal); }
+  .send { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--teal); color: #fff; display: grid; place-items: center; flex: none; }
+  .privacy { font-size: 12px; color: var(--ink-3); font-weight: 600; display: flex; gap: 6px; align-items: flex-start; margin-top: 10px; line-height: 1.4; }
+  .privacy .ic { width: 14px; height: 14px; margin-top: 1px; }
+
+  /* ---------- Reliability ---------- */
+  .fair-banner { display: flex; gap: 12px; align-items: center; background: var(--ink); color: #fff; border-radius: var(--r-lg); padding: 14px 16px; }
+  .fair-banner .scale { width: 42px; height: 42px; border-radius: 14px; background: rgba(255,255,255,.12); display: grid; place-items: center; flex: none; color: var(--apricot); }
+  .fair-banner b { display: block; font-size: 16px; }
+  .fair-banner small { opacity: .8; font-weight: 600; font-size: 13px; line-height: 1.35; display: block; }
+  .versus { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; margin-top: 14px; }
+  .score-card { background: var(--paper); border-radius: var(--r-lg); box-shadow: var(--shadow-card); padding: 14px 12px; text-align: center; }
+  .score-card .who { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--ink-3); text-transform: uppercase; letter-spacing: .4px; }
+  .score-card h4 { margin: 2px 0 10px; font-size: 14.5px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ring { --p: 90; --rc: var(--teal); width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 8px; display: grid; place-items: center; background: conic-gradient(var(--rc) calc(var(--p) * 1%), var(--cream-2) 0); position: relative; }
+  .ring::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: var(--paper); }
+  .ring span { position: relative; font-size: 24px; font-weight: 900; letter-spacing: -.5px; }
+  .ring span small { font-size: 13px; }
+  .score-card .grade { font-size: 12.5px; font-weight: 800; color: var(--green); margin-bottom: 10px; }
+  .stat-list { list-style: none; padding: 0; margin: 0; text-align: left; border-top: 1px solid var(--line); }
+  .stat-list li { display: flex; justify-content: space-between; gap: 6px; font-size: 12px; white-space: nowrap; padding: 7px 2px; border-bottom: 1px solid var(--line); color: var(--ink-2); font-weight: 700; }
+  .stat-list li:last-child { border-bottom: 0; }
+  .stat-list b { color: var(--ink); white-space: nowrap; }
+  .stat-list b.warn { color: var(--coral); }
+
+  .rules { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13.5px; }
+  .rules th { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; color: var(--ink-3); text-align: left; padding: 0 6px 8px; }
+  .rules th:not(:first-child), .rules td:not(:first-child) { text-align: center; }
+  .rules td { padding: 10px 6px; border-top: 1px solid var(--line); font-weight: 700; }
+  .impact { display: inline-block; font-size: 11.5px; font-weight: 900; padding: 3px 8px; border-radius: 99px; }
+  .impact.none { background: #E6F4EC; color: var(--green); }
+  .impact.minor { background: var(--apricot-soft); color: var(--apricot-ink); }
+  .impact.major { background: var(--coral-soft); color: var(--coral); }
+  .impact.severe { background: var(--coral); color: #fff; }
+  .rules-foot { font-size: 12.5px; color: var(--ink-2); font-weight: 600; line-height: 1.45; margin: 12px 2px 0; display: flex; gap: 8px; }
+  .rules-foot .ic { color: var(--teal); width: 16px; height: 16px; margin-top: 1px; }
+
+  .history { display: grid; gap: 10px; }
+  .h-item { display: flex; gap: 12px; background: var(--paper); border-radius: var(--r-md); padding: 12px; box-shadow: var(--shadow-card); }
+  .h-ic { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; flex: none; }
+  .h-ic.good { background: #E6F4EC; color: var(--green); }
+  .h-ic.bad { background: var(--coral-soft); color: var(--coral); }
+  .h-ic.neutral { background: var(--cream-2); color: var(--ink-2); }
+  .h-item b { display: block; font-size: 14px; line-height: 1.3; }
+  .h-item p { margin: 3px 0 6px; font-size: 12.5px; color: var(--ink-2); font-weight: 600; line-height: 1.4; }
+  .h-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .who-tag { font-size: 11px; font-weight: 900; padding: 2px 7px; border-radius: 6px; text-transform: uppercase; letter-spacing: .3px; }
+  .who-tag.tech { background: var(--teal-soft); color: var(--teal-dark); }
+  .who-tag.hosp { background: var(--apricot-soft); color: var(--apricot-ink); }
+  .h-meta time { font-size: 11.5px; color: var(--ink-3); font-weight: 700; }
+
+  .review { background: var(--paper); border-radius: var(--r-md); padding: 12px 14px; box-shadow: var(--shadow-card); font-size: 13.5px; line-height: 1.45; font-weight: 600; color: var(--ink-2); }
+  .review .stars { color: var(--gold); letter-spacing: 1px; font-size: 13px; }
+  .review cite { display: block; font-style: normal; font-size: 12px; font-weight: 800; color: var(--ink-3); margin-top: 6px; }
+
+  /* ---------- Profile ---------- */
+  .profile-hero { margin: 0 -18px; padding: 8px 18px 0; position: relative; }
+  .cover { height: 108px; border-radius: var(--r-lg); background:
+      radial-gradient(circle at 85% 30%, rgba(255,255,255,.25) 0 28px, transparent 29px),
+      radial-gradient(circle at 70% 75%, rgba(255,255,255,.16) 0 16px, transparent 17px),
+      linear-gradient(130deg, var(--apricot) 0%, #E8835A 45%, var(--teal) 100%); }
+  .p-avatar { width: 92px; height: 92px; border-radius: 30px; border: 5px solid var(--cream); margin: -46px 0 0 14px; display: grid; place-items: center; font-size: 30px; font-weight: 900; color: #fff; background: linear-gradient(150deg, #3C8F86, var(--teal-dark)); position: relative; }
+  .p-avatar .verified { position: absolute; right: -6px; bottom: -6px; width: 30px; height: 30px; border-radius: 50%; background: var(--teal); border: 3px solid var(--cream); display: grid; place-items: center; }
+  .p-avatar .verified .ic { width: 15px; height: 15px; stroke-width: 3; }
+  .p-name { margin: 10px 0 0; font-size: 24px; font-weight: 900; letter-spacing: -.3px; }
+  .p-sub { color: var(--ink-3); font-weight: 700; font-size: 14px; margin: 2px 0 0; }
+  .cred-card { margin-top: 14px; border-radius: var(--r-lg); padding: 16px; background: var(--teal-soft); border: 1.5px solid #C6E2DC; }
+  .cred-card .tier-big { display: flex; align-items: center; gap: 10px; }
+  .cred-card .tier-num { font-size: 11px; font-weight: 900; background: var(--teal); color: #fff; padding: 4px 8px; border-radius: 8px; letter-spacing: .4px; }
+  .cred-card b { font-size: 16.5px; color: var(--teal-dark); }
+  .cred-card ul { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 7px; }
+  .cred-card li { display: flex; gap: 8px; align-items: center; font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+  .cred-card li .ic { color: var(--teal); width: 16px; height: 16px; }
+  .p-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+  .p-stats div { background: var(--paper); border-radius: var(--r-md); padding: 12px 6px; text-align: center; box-shadow: var(--shadow-card); }
+  .p-stats b { display: block; font-size: 20px; font-weight: 900; }
+  .p-stats small { font-size: 12px; color: var(--ink-3); font-weight: 700; }
+
+  .tier-explainer { display: grid; gap: 10px; }
+  .tier-row { display: flex; gap: 12px; background: var(--paper); border-radius: var(--r-md); padding: 14px; box-shadow: var(--shadow-card); border-left: 5px solid var(--tc); }
+  .tier-row.t1 { --tc: var(--teal); }
+  .tier-row.t2 { --tc: var(--apricot); }
+  .tier-row.t3 { --tc: var(--plum); }
+  .tier-row .tr-body { flex: 1; }
+  .tier-row .tr-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tier-row .you { font-size: 10.5px; font-weight: 900; background: var(--ink); color: #fff; padding: 2px 7px; border-radius: 6px; letter-spacing: .4px; }
+  .tier-row p { margin: 7px 0 0; font-size: 13px; color: var(--ink-2); font-weight: 600; line-height: 1.45; }
+  .tier-row p b { color: var(--ink); }
+  .docs { display: grid; gap: 0; background: var(--paper); border-radius: var(--r-md); box-shadow: var(--shadow-card); overflow: hidden; }
+  .doc { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 700; }
+  .doc:last-child { border-bottom: 0; }
+  .doc .ic { color: var(--ink-3); }
+  .doc span { flex: 1; }
+  .doc em { font-style: normal; font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 99px; }
+  .doc em.ok { background: #E6F4EC; color: var(--green); }
+  .doc em.opt { background: var(--cream-2); color: var(--ink-3); }
+
+  /* ---------- Mobile: phone frame becomes the real viewport ---------- */
+  @media (max-width: 620px) {
+    .stage { padding: 0; gap: 0; display: block; min-height: 0; }
+    .intro { display: none; }
+    .phone { width: 100%; height: 100vh; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; background: var(--cream); }
+    .screen { border-radius: 0; }
+    .statusbar { display: none; }
+    .view { padding: calc(env(safe-area-inset-top) + 14px) 16px 110px; }
+    .tabbar { padding-bottom: calc(env(safe-area-inset-bottom) + 10px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-paw" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><ellipse cx="5.5" cy="10" rx="2.1" ry="2.7"/><ellipse cx="9.5" cy="5.6" rx="2.1" ry="2.7"/><ellipse cx="14.5" cy="5.6" rx="2.1" ry="2.7"/><ellipse cx="18.5" cy="10" rx="2.1" ry="2.7"/><path d="M12 11.2c-3.1 0-6.2 3.6-6.2 6.4 0 1.8 1.4 2.9 3.1 2.9 1.2 0 2-.6 3.1-.6s1.9.6 3.1.6c1.7 0 3.1-1.1 3.1-2.9 0-2.8-3.1-6.4-6.2-6.4z"/></g></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5 21 3z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3.5h3.5l2 5-2.5 1.5a11 11 0 0 0 6 6l1.5-2.5 5 2V19a2 2 0 0 1-2 2A16.5 16.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2z" fill="currentColor"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.5"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3.2 3.2 0 0 0 6 0L5 7zM19 7l-3 7a3.2 3.2 0 0 0 6 0l-3-7z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4.5M12 17.5v.3"/></symbol>
+</svg>
+
+<div class="stage">
+  <!-- Desktop-only presentation panel -->
+  <aside class="intro">
+    <div class="brand">
+      <div class="brand-mark"><svg class="ic"><use href="#i-paw"/></svg></div>
+      <h1>Tail<span>shift</span></h1>
+    </div>
+    <p class="tagline"><strong>Relief shifts for vet teams.</strong> Clinics fill surge and last-minute gaps. Techs pick up extra work they actually want, with the same reliability rules on both sides.</p>
+    <ul class="screen-list" id="screenList">
+      <li><button data-go="browse"><span class="sl-ic"><svg class="ic"><use href="#i-search"/></svg></span><span><b>Browse shifts</b><small>Cards + confirm-before-request</small></span><span class="role-tag tech">Tech</span></button></li>
+      <li><button data-go="post"><span class="sl-ic"><svg class="ic"><use href="#i-plus"/></svg></span><span><b>Post a shift</b><small>Date, time, pay, skills, tier</small></span><span class="role-tag hosp">Clinic</span></button></li>
+      <li><button data-go="messages"><span class="sl-ic"><svg class="ic"><use href="#i-chat"/></svg></span><span><b>Messages</b><small>Unlocked once a shift is confirmed</small></span><span class="role-tag both">Both</span></button></li>
+      <li><button data-go="trust"><span class="sl-ic"><svg class="ic"><use href="#i-shield"/></svg></span><span><b>Reliability</b><small>Symmetric cancellation scoring</small></span><span class="role-tag both">Both</span></button></li>
+      <li><button data-go="profile"><span class="sl-ic"><svg class="ic"><use href="#i-user"/></svg></span><span><b>Tech profile</b><small>Credential tiers, clearly labeled</small></span><span class="role-tag tech">Tech</span></button></li>
+    </ul>
+    <p class="fineprint">Interactive mockup. All clinics, people, pay ranges and scores are sample data. Tier eligibility rules shown are illustrative; real scope-of-practice rules vary by state.</p>
+  </aside>
+
+  <!-- Phone -->
+  <div class="phone">
+    <div class="screen">
+      <div class="statusbar" aria-hidden="true">
+        <span>9:41</span>
+        <span class="notch"></span>
+        <span class="sb-icons">
+          <i style="width:3px;height:6px"></i><i style="width:3px;height:8px"></i><i style="width:3px;height:10px"></i><i style="width:3px;height:12px"></i>
+          <i style="width:24px;height:12px;border-radius:4px;margin-left:4px"></i>
+        </span>
+      </div>
+
+      <main class="views" id="views">
+
+        <!-- ============ BROWSE (Tech) ============ -->
+        <section class="view active" id="view-browse" aria-label="Browse shifts">
+          <div class="topbar greet">
+            <div>
+              <p>Thursday, Oct 8</p>
+              <h2>Hi Maya 👋</h2>
+            </div>
+            <span class="view-pill tech">Tech view</span>
+          </div>
+          <label class="search">
+            <svg class="ic"><use href="#i-search"/></svg>
+            <input type="search" id="shiftSearch" placeholder="Search clinics or skills" aria-label="Search clinics or skills">
+            <svg class="ic"><use href="#i-pin"/></svg><span style="font-weight:800;font-size:13px;color:var(--ink-2)">10 mi</span>
+          </label>
+          <div class="filter-row" role="group" aria-label="Filter shifts">
+            <button class="filter" aria-pressed="true" data-filter="all">All shifts</button>
+            <button class="filter" aria-pressed="false" data-filter="urgent">⚡ Urgent</button>
+            <button class="filter" aria-pressed="false" data-filter="cvt">Credentialed</button>
+            <button class="filter" aria-pressed="false" data-filter="va">Assistant</button>
+            <button class="filter" aria-pressed="false" data-filter="stu">Student-eligible</button>
+          </div>
+          <div class="shift-list" id="shiftList"></div>
+        </section>
+
+        <!-- ============ POST SHIFT (Hospital) ============ -->
+        <section class="view" id="view-post" aria-label="Post a shift">
+          <div class="topbar">
+            <div>
+              <h2>Post a shift</h2>
+              <p>Most urgent shifts fill in under 2 hours</p>
+            </div>
+            <span class="view-pill hosp">Clinic view</span>
+          </div>
+
+          <div class="clinic-strip">
+            <div class="avatar" style="--c:#1E6F68">RB</div>
+            <div style="flex:1"><b>Riverbend Animal Hospital</b><small>Portland, OR · Posting as Jordan E.</small></div>
+            <span class="reliab-chip" title="Your clinic's reliability score, visible to techs"><svg class="ic"><use href="#i-shield"/></svg>97%</span>
+          </div>
+
+          <form class="form" id="postForm" style="margin-top:16px" onsubmit="return false">
+            <div class="field">
+              <label for="pDate">Date</label>
+              <input class="input" type="date" id="pDate" value="2026-10-10" min="2026-10-08">
+            </div>
+            <div class="row-2">
+              <div class="field"><label for="pStart">Start</label><input class="input" type="time" id="pStart" value="07:00"></div>
+              <div class="field"><label for="pEnd">End</label><input class="input" type="time" id="pEnd" value="19:00"></div>
+            </div>
+
+            <div class="field">
+              <span class="label" id="tierLabel">Who can fill this shift?</span>
+              <div class="tier-picker" role="radiogroup" aria-labelledby="tierLabel">
+                <button type="button" class="tier-opt" role="radio" aria-checked="true" data-tier="cvt"><span class="dot"></span><span><b>Credentialed Vet Tech</b><small>LVT / RVT / CVT / LVMT, license verified. Required for anesthesia, dental, and other tech-scope tasks.</small></span></button>
+                <button type="button" class="tier-opt" role="radio" aria-checked="false" data-tier="va"><span class="dot"></span><span><b>Vet Assistant or above</b><small>Restraint, kennel, lab prep, client care. Credentialed techs can apply too.</small></span></button>
+                <button type="button" class="tier-opt" role="radio" aria-checked="false" data-tier="stu"><span class="dot"></span><span><b>Student / uncredentialed OK</b><small>Only offered where your state allows it. You confirm the tasks fit state scope.</small></span></button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="pRate">Pay rate</label>
+              <div class="money">
+                <span class="pre">$</span>
+                <input class="input" type="number" id="pRate" value="42" min="15" max="90" inputmode="numeric">
+                <span class="post">/ hr</span>
+              </div>
+              <input class="range" type="range" id="pRateRange" min="15" max="90" value="42" aria-label="Pay rate slider">
+              <p class="hint" id="rateHint">Area range for this tier: <b>$38–46/hr</b> · higher rates fill faster</p>
+            </div>
+
+            <div class="field">
+              <span class="label">Required skills</span>
+              <div class="chips" id="skillPicker"></div>
+            </div>
+
+            <div class="switch-row">
+              <div><b>⚡ Mark as urgent</b><small>Push alert to available techs nearby</small></div>
+              <button type="button" class="switch" role="switch" aria-checked="false" id="urgentSwitch" aria-label="Mark as urgent"></button>
+            </div>
+
+            <div class="field">
+              <label for="pNotes">Notes for techs <span class="muted">(optional)</span></label>
+              <textarea class="input" id="pNotes" placeholder="e.g. 3 dentals + 1 mass removal. Park in back lot."></textarea>
+            </div>
+
+            <div class="preview-wrap">
+              <div class="label"><svg class="ic" style="width:14px;height:14px"><use href="#i-eye"/></svg> How techs will see it</div>
+              <div id="postPreview"></div>
+            </div>
+
+            <div class="cost"><span>Est. shift cost</span><b id="postCost">$504 + $40 service fee</b></div>
+            <button type="button" class="btn btn-accent btn-block" id="postBtn"><svg class="ic"><use href="#i-plus"/></svg>Post shift</button>
+          </form>
+        </section>
+
+        <!-- ============ MESSAGES ============ -->
+        <section class="view" id="view-messages" aria-label="Messages">
+          <div class="chat-head">
+            <button class="icon-btn" aria-label="Back" data-go="browse"><svg class="ic"><use href="#i-back"/></svg></button>
+            <div class="avatar" style="--c:#1E6F68">RB</div>
+            <div class="who"><b>Riverbend Animal Hospital</b><small>Jordan Ellis · Practice Manager</small></div>
+            <button class="icon-btn" aria-label="Call clinic through Tailshift" id="callBtn"><svg class="ic"><use href="#i-phone"/></svg></button>
+          </div>
+          <div class="confirmed">
+            <div class="ck"><svg class="ic"><use href="#i-check"/></svg></div>
+            <div><b>Shift confirmed</b><small>Sat, Oct 10 · 7:00 AM – 7:00 PM · $42/hr</small></div>
+            <a href="#" id="detailsLink">Details</a>
+          </div>
+          <p class="privacy"><svg class="ic"><use href="#i-lock"/></svg>Phone numbers stay private. Calls route through Tailshift, and messages are kept in case anyone needs support.</p>
+          <div class="thread" id="thread">
+            <span class="sys"><svg class="ic"><use href="#i-lock"/></svg>Messaging unlocked when Riverbend confirmed your request</span>
+            <div class="msg them">Hi Maya! Thanks so much for grabbing Saturday. We've got 3 dentals and a mass removal on the board.<time>Yesterday, 4:12 PM</time></div>
+            <div class="msg me">Happy to help! Will I be on anesthesia? And do you run capnography on your monitors?<time>Yesterday, 4:20 PM</time></div>
+            <div class="msg them">Yes, you'll be on anesthesia for the dentals. Full multiparameter monitors with EtCO₂. Dr. Shah is the surgeon.<time>Yesterday, 4:24 PM</time></div>
+            <div class="msg them">Park in the back lot. I'll text the door code through here Saturday morning.<time>Yesterday, 4:25 PM</time></div>
+            <div class="msg me">Perfect. See you at 6:45 🐾<time>Yesterday, 4:31 PM</time></div>
+          </div>
+        </section>
+
+        <!-- ============ RELIABILITY ============ -->
+        <section class="view" id="view-trust" aria-label="Reliability and ratings">
+          <div class="topbar">
+            <div>
+              <h2>Reliability</h2>
+              <p>Last 12 months · updated after every shift</p>
+            </div>
+          </div>
+
+          <div class="fair-banner">
+            <div class="scale"><svg class="ic" style="width:24px;height:24px"><use href="#i-scale"/></svg></div>
+            <div><b>One standard. Both sides.</b><small>Clinics and techs are scored with the exact same rules. A late cancel counts the same no matter who makes it.</small></div>
+          </div>
+
+          <div class="versus">
+            <div class="score-card">
+              <div class="who"><span class="who-tag tech">Tech</span></div>
+              <h4>You · Maya R.</h4>
+              <div class="ring" style="--p:98"><span>98<small>%</small></span></div>
+              <div class="grade">★ 4.9 · 36 reviews</div>
+              <ul class="stat-list">
+                <li>Shifts kept <b>47/48</b></li>
+                <li>Late cancels <b class="warn">1</b></li>
+                <li>No-shows <b>0</b></li>
+                <li>Avg. notice <b>6.2 d</b></li>
+              </ul>
+            </div>
+            <div class="score-card">
+              <div class="who"><span class="who-tag hosp">Clinic</span></div>
+              <h4>Riverbend Animal Hosp.</h4>
+              <div class="ring" style="--p:97"><span>97<small>%</small></span></div>
+              <div class="grade">★ 4.8 · 212 reviews</div>
+              <ul class="stat-list">
+                <li>Shifts kept <b>112/115</b></li>
+                <li>Late cancels <b class="warn">3</b></li>
+                <li>No-shows <b>0</b></li>
+                <li>Avg. notice <b>4.8 d</b></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-title">How cancellations are scored</div>
+          <div class="card">
+            <table class="rules">
+              <thead><tr><th>Notice given</th><th>Tech</th><th>Clinic</th></tr></thead>
+              <tbody>
+                <tr><td>72+ hours</td><td><span class="impact none">No impact</span></td><td><span class="impact none">No impact</span></td></tr>
+                <tr><td>24–72 hours</td><td><span class="impact minor">Minor</span></td><td><span class="impact minor">Minor</span></td></tr>
+                <tr><td>Under 24 hours</td><td><span class="impact major">Major</span></td><td><span class="impact major">Major</span></td></tr>
+                <tr><td>No-show / day-of</td><td><span class="impact severe">Severe</span></td><td><span class="impact severe">Severe</span></td></tr>
+              </tbody>
+            </table>
+            <p class="rules-foot"><svg class="ic"><use href="#i-info"/></svg><span>When a clinic cancels within 24 hrs, the tech is also paid 4 hours at the posted rate. Either side can appeal one documented emergency per quarter.</span></p>
+          </div>
+
+          <div class="section-title">Recent activity</div>
+          <div class="history">
+            <div class="h-item">
+              <div class="h-ic bad"><svg class="ic"><use href="#i-alert"/></svg></div>
+              <div><b>Cedar Hills Emergency cancelled your shift</b><p>6 hrs before start. Counted against their score. You received $192 late-cancel pay.</p>
+                <div class="h-meta"><span class="who-tag hosp">Clinic cancelled</span><span class="impact major">Under 24 hrs</span><time>Sep 28</time></div></div>
+            </div>
+            <div class="h-item">
+              <div class="h-ic good"><svg class="ic"><use href="#i-check"/></svg></div>
+              <div><b>Completed · Riverbend Animal Hospital</b><p>12 hr shift, on time. Both sides left reviews.</p>
+                <div class="h-meta"><span class="impact none">Kept</span><time>Sep 19</time></div></div>
+            </div>
+            <div class="h-item">
+              <div class="h-ic neutral"><svg class="ic"><use href="#i-x"/></svg></div>
+              <div><b>You cancelled · Happy Tails Clinic</b><p>5 days ahead. No impact, and the shift was re-filled in 40 min.</p>
+                <div class="h-meta"><span class="who-tag tech">Tech cancelled</span><span class="impact none">72+ hrs</span><time>Sep 14</time></div></div>
+            </div>
+            <div class="h-item">
+              <div class="h-ic bad"><svg class="ic"><use href="#i-alert"/></svg></div>
+              <div><b>You cancelled · Lakeside Pet Wellness</b><p>20 hrs before start (sick). Counted. Appeal available with a doctor's note.</p>
+                <div class="h-meta"><span class="who-tag tech">Tech cancelled</span><span class="impact major">Under 24 hrs</span><time>Aug 19</time></div></div>
+            </div>
+          </div>
+
+          <div class="section-title">Ratings go both ways</div>
+          <div class="history">
+            <div class="review"><span class="stars">★★★★★</span><br>"Maya ran anesthesia on four dentals like she'd worked here for years. Book her again."<cite>Riverbend Animal Hospital → Maya · Sep 19</cite></div>
+            <div class="review"><span class="stars">★★★★★</span><br>"Organized, kind team. Shift started on time and they had a locker and lunch ready."<cite>Maya → Riverbend Animal Hospital · Sep 19</cite></div>
+          </div>
+        </section>
+
+        <!-- ============ PROFILE (Tech) ============ -->
+        <section class="view" id="view-profile" aria-label="Tech profile">
+          <div class="profile-hero">
+            <div class="cover"></div>
+            <div class="p-avatar">MR<span class="verified" title="Identity verified"><svg class="ic" style="color:#fff"><use href="#i-check"/></svg></span></div>
+          </div>
+          <h2 class="p-name">Maya Rodriguez</h2>
+          <p class="p-sub">Portland, OR · 7 yrs experience · On Tailshift since 2024</p>
+
+          <div class="cred-card">
+            <div class="tier-big"><span class="tier-num">TIER 1</span><b>Credentialed Vet Tech · RVT</b></div>
+            <ul>
+              <li><svg class="ic"><use href="#i-check"/></svg>License verified with state board · exp. Mar 2027</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Eligible for all shift types in Oregon</li>
+              <li><svg class="ic"><use href="#i-check"/></svg>Background check cleared · Aug 2026</li>
+            </ul>
+          </div>
+
+          <div class="p-stats">
+            <div><b>48</b><small>Shifts</small></div>
+            <div><b>4.9<span class="star" style="font-size:16px">★</span></b><small>Rating</small></div>
+            <div><b style="color:var(--green)">98%</b><small>Reliable</small></div>
+          </div>
+
+          <div class="section-title">Skills</div>
+          <div class="chips">
+            <span class="chip">Anesthesia monitoring</span><span class="chip">Dental</span><span class="chip">IV catheters</span>
+            <span class="chip">Radiology</span><span class="chip">ER / critical care</span><span class="chip">Fear Free certified</span>
+          </div>
+
+          <div class="section-title">Availability</div>
+          <div class="switch-row">
+            <div><b>Open to last-minute shifts</b><small>Get alerts for shifts starting within 24 hrs</small></div>
+            <button type="button" class="switch teal" role="switch" aria-checked="true" aria-label="Open to last-minute shifts" data-toggle></button>
+          </div>
+
+          <div class="section-title">Credential tiers on Tailshift</div>
+          <div class="tier-explainer">
+            <div class="tier-row t1">
+              <div class="tr-body">
+                <div class="tr-top"><span class="tier tier-1">Credentialed Vet Tech</span><span class="you">YOU</span></div>
+                <p><b>LVT · RVT · CVT · LVMT.</b> License checked against the state board and re-verified before it expires. Sees every shift, including anesthesia, dental and other tech-scope work.</p>
+              </div>
+            </div>
+            <div class="tier-row t2">
+              <div class="tr-body">
+                <div class="tr-top"><span class="tier tier-2">Veterinary Assistant</span></div>
+                <p><b>Experienced assistants.</b> ID, work history and references verified; an approved assistant certificate is optional. Sees assistant-level shifts such as restraint, kennel, lab prep and client care.</p>
+              </div>
+            </div>
+            <div class="tier-row t3">
+              <div class="tr-body">
+                <div class="tr-top"><span class="tier tier-3">Student / Uncredentialed Tech</span></div>
+                <p><b>Only where state law allows.</b> Enrollment or experience verified. Shown only shifts in states that permit it, limited to tasks within that state's scope, and always labeled on the clinic's side.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">Documents</div>
+          <div class="docs">
+            <div class="doc"><svg class="ic"><use href="#i-doc"/></svg><span>RVT license</span><em class="ok">Verified</em></div>
+            <div class="doc"><svg class="ic"><use href="#i-shield"/></svg><span>Background check</span><em class="ok">Cleared</em></div>
+            <div class="doc"><svg class="ic"><use href="#i-doc"/></svg><span>W-9 (1099 contractor)</span><em class="ok">On file</em></div>
+            <div class="doc"><svg class="ic"><use href="#i-doc"/></svg><span>Liability insurance</span><em class="opt">Optional</em></div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Message composer (only on messages view) -->
+      <div class="composer" id="composer">
+        <div class="quick" id="quickReplies">
+          <button type="button">Running 10 min late</button>
+          <button type="button">Where should I park?</button>
+          <button type="button">What scrubs color?</button>
+          <button type="button">On my way!</button>
+        </div>
+        <form class="compose-row" id="composeForm">
+          <input id="composeInput" placeholder="Message Riverbend…" aria-label="Message" autocomplete="off">
+          <button class="send" aria-label="Send message"><svg class="ic"><use href="#i-send"/></svg></button>
+        </form>
+      </div>
+
+      <!-- Tab bar -->
+      <nav class="tabbar" aria-label="Main">
+        <button class="tab" data-go="browse" aria-current="page"><svg class="ic"><use href="#i-search"/></svg>Shifts</button>
+        <button class="tab" data-go="trust"><svg class="ic"><use href="#i-shield"/></svg>Reliability</button>
+        <button class="tab" data-go="post" aria-label="Post a shift"><span class="tab-post"><svg class="ic"><use href="#i-plus"/></svg></span>Post</button>
+        <button class="tab" data-go="messages"><svg class="ic"><use href="#i-chat"/></svg>Messages<span class="badge" id="msgBadge">2</span></button>
+        <button class="tab" data-go="profile"><svg class="ic"><use href="#i-user"/></svg>Profile</button>
+      </nav>
+
+      <!-- Request confirmation sheet -->
+      <div class="backdrop" id="backdrop"></div>
+      <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+        <div class="sheet-handle"></div>
+        <h2 id="sheetTitle">Request this shift?</h2>
+        <p>The clinic reviews your profile first. Nothing is booked until they confirm.</p>
+        <div class="summary" id="sheetSummary"></div>
+        <div class="notice"><svg class="ic"><use href="#i-info"/></svg><span><b>Same rules for both sides:</b> if you <i>or</i> the clinic cancels within 24 hours of start, it counts against that side's reliability score.</span></div>
+        <div class="sheet-actions">
+          <button class="btn btn-ghost" id="sheetCancel">Not now</button>
+          <button class="btn btn-primary" id="sheetConfirm">Yes, request shift</button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"><svg class="ic"><use href="#i-check"/></svg><span id="toastMsg"></span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const icon = (n, cls = '') => `<svg class="ic ${cls}"><use href="#i-${n}"/></svg>`;
+  const TODAY = '2026-10-08', TOMORROW = '2026-10-09';
+
+  const TIERS = {
+    cvt: { name: 'Credentialed Tech', cls: 'tier-1', range: '$38–46/hr', rank: 3 },
+    va:  { name: 'Vet Assistant+',    cls: 'tier-2', range: '$22–28/hr', rank: 2 },
+    stu: { name: 'Student-eligible',  cls: 'tier-3', range: '$18–22/hr', rank: 1 },
+  };
+  const ME = { tier: 'cvt' };
+
+  const shifts = [
+    { id: 's1', clinic: 'Cedar Hills Emergency Vet', initials: 'CH', color: '#D9573F', dist: '3.1 mi', rating: 4.7, reliab: 92,
+      date: TODAY, start: '18:00', end: '02:00', rate: 48, tier: 'cvt', skills: ['ER / critical care', 'Triage', 'IV catheters'],
+      urgent: 'Tonight', bonus: '+$5/hr overnight' },
+    { id: 's2', clinic: 'Willow Creek Animal Hospital', initials: 'WC', color: '#1E6F68', dist: '2.4 mi', rating: 4.8, reliab: 97,
+      date: '2026-10-11', start: '08:00', end: '18:00', rate: 40, tier: 'cvt', skills: ['Anesthesia monitoring', 'Dental', 'Radiology'] },
+    { id: 's3', clinic: 'Happy Tails Veterinary Clinic', initials: 'HT', color: '#E58A35', dist: '5.8 mi', rating: 4.9, reliab: 99,
+      date: '2026-10-12', start: '08:00', end: '17:00', rate: 26, tier: 'va', skills: ['Restraint', 'Phlebotomy', 'Fear Free'] },
+    { id: 's4', clinic: 'Lakeside Pet Wellness', initials: 'LP', color: '#7356A0', dist: '7.2 mi', rating: 4.6, reliab: 95,
+      date: '2026-10-14', start: '09:00', end: '15:00', rate: 21, tier: 'stu', skills: ['Kennel care', 'Restraint', 'Client intake'] },
+  ];
+  const requested = new Set();
+  let activeFilter = 'all';
+
+  /* ---------- Formatting ---------- */
+  function fmtTime(t) {
+    let [h, m] = t.split(':').map(Number);
+    const ap = h < 12 ? 'AM' : 'PM';
+    h = h % 12 || 12;
+    return `${h}:${String(m).padStart(2, '0')} ${ap}`;
+  }
+  function hours(s, e) {
+    const [sh, sm] = s.split(':').map(Number), [eh, em] = e.split(':').map(Number);
+    let d = (eh * 60 + em) - (sh * 60 + sm);
+    if (d <= 0) d += 1440;
+    return Math.round(d / 6) / 10;
+  }
+  function fmtDate(d) {
+    if (d === TODAY) return 'Today';
+    if (d === TOMORROW) return 'Tomorrow';
+    return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  const money = n => '$' + Math.round(n).toLocaleString('en-US');
+
+  /* ---------- Shift cards ---------- */
+  function cardHTML(s, { preview = false } = {}) {
+    const t = TIERS[s.tier], h = hours(s.start, s.end), est = h * s.rate;
+    const isReq = requested.has(s.id);
+    const eligible = TIERS[ME.tier].rank >= t.rank;
+    return `
+      <article class="shift-card${s.urgent ? ' is-urgent' : ''}">
+        ${s.urgent ? `<span class="urgent-tag">${icon('bolt')}${s.urgent}</span>` : ''}
+        <header class="sc-head">
+          <div class="avatar" style="--c:${s.color}">${s.initials}</div>
+          <div class="sc-clinic"><h3>${s.clinic}</h3><p>${s.dist} · <span class="star">★</span> ${s.rating}</p></div>
+          <span class="reliab-chip" title="Clinic reliability score">${icon('shield')}${s.reliab}%</span>
+        </header>
+        <div class="sc-when">
+          <div>${icon('cal')}${fmtDate(s.date)}</div>
+          <div>${icon('clock')}${fmtTime(s.start)} – ${fmtTime(s.end)} <span class="muted">· ${h} hrs</span></div>
+        </div>
+        <div class="sc-pay">
+          <div><strong>$${s.rate}</strong><span>/hr</span></div>
+          <div class="est">≈ ${money(est)} total${s.bonus ? `<br>${s.bonus}` : ''}</div>
+        </div>
+        <div class="chips"><span class="tier ${t.cls}">${t.name}</span>${s.skills.map(k => `<span class="chip">${k}</span>`).join('')}</div>
+        ${preview ? '' : `
+          ${eligible && !isReq ? `<div class="eligible">${icon('check')}Your credentials qualify</div>` : ''}
+          <button class="btn btn-block ${isReq ? 'btn-requested' : 'btn-primary'}" data-request="${s.id}" ${isReq || !eligible ? 'disabled' : ''}>
+            ${isReq ? icon('clock') + 'Requested · awaiting clinic' : eligible ? 'Request shift' : 'Requires higher credential tier'}
+          </button>`}
+      </article>`;
+  }
+
+  function renderShifts() {
+    const q = $('#shiftSearch').value.trim().toLowerCase();
+    const list = shifts.filter(s => {
+      if (activeFilter === 'urgent' && !s.urgent) return false;
+      if (['cvt', 'va', 'stu'].includes(activeFilter) && s.tier !== activeFilter) return false;
+      if (q && !(s.clinic + ' ' + s.skills.join(' ')).toLowerCase().includes(q)) return false;
+      return true;
+    });
+    $('#shiftList').innerHTML = list.length
+      ? list.map(s => cardHTML(s)).join('')
+      : `<div class="card" style="text-align:center;color:var(--ink-3);font-weight:700">No shifts match. Try another filter.</div>`;
+  }
+
+  $$('.filter').forEach(b => b.addEventListener('click', () => {
+    activeFilter = b.dataset.filter;
+    $$('.filter').forEach(x => x.setAttribute('aria-pressed', x === b));
+    renderShifts();
+  }));
+  $('#shiftSearch').addEventListener('input', renderShifts);
+
+  /* ---------- Request flow with confirmation step ---------- */
+  let pendingId = null, armTimer = null, lastFocus = null;
+  const sheet = $('#sheet'), backdrop = $('#backdrop'), confirmBtn = $('#sheetConfirm');
+
+  $('#shiftList').addEventListener('click', e => {
+    const btn = e.target.closest('[data-request]');
+    if (btn && !btn.disabled) openSheet(btn.dataset.request, btn);
+  });
+
+  function openSheet(id, trigger) {
+    const s = shifts.find(x => x.id === id);
+    const t = TIERS[s.tier], h = hours(s.start, s.end);
+    pendingId = id; lastFocus = trigger;
+    $('#sheetSummary').innerHTML = `
+      <div class="sum-head"><div class="avatar" style="--c:${s.color}">${s.initials}</div>
+        <div><b>${s.clinic}</b><br><span class="muted" style="font-size:13px;font-weight:700">${s.dist} · clinic reliability ${s.reliab}%</span></div></div>
+      <dl>
+        <div><dt>When</dt><dd>${fmtDate(s.date)} · ${fmtTime(s.start)} – ${fmtTime(s.end)}</dd></div>
+        <div><dt>Pay</dt><dd>$${s.rate}/hr · ${h} hrs</dd></div>
+        <div><dt>Est. earnings</dt><dd style="color:var(--teal-dark)">${money(h * s.rate)}</dd></div>
+        <div><dt>Requires</dt><dd><span class="tier ${t.cls}">${t.name}</span> <span style="color:var(--green)">✓ you</span></dd></div>
+      </dl>`;
+    sheet.classList.add('open'); backdrop.classList.add('open');
+    sheet.setAttribute('aria-hidden', 'false');
+    // Arm the confirm button after a short beat so a fast double-tap can't submit by accident.
+    confirmBtn.disabled = true;
+    clearTimeout(armTimer);
+    armTimer = setTimeout(() => { confirmBtn.disabled = false; }, 450);
+    $('#sheetCancel').focus();
+  }
+  function closeSheet() {
+    sheet.classList.remove('open'); backdrop.classList.remove('open');
+    sheet.setAttribute('aria-hidden', 'true');
+    pendingId = null;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+  confirmBtn.addEventListener('click', () => {
+    const s = shifts.find(x => x.id === pendingId);
+    if (!s) return;
+    requested.add(s.id);
+    closeSheet();
+    renderShifts();
+    toast(`Request sent to ${s.clinic}. Most clinics reply within 2 hrs.`);
+  });
+  $('#sheetCancel').addEventListener('click', closeSheet);
+  backdrop.addEventListener('click', closeSheet);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
+
+  /* ---------- Toast ---------- */
+  let toastTimer;
+  function toast(msg) {
+    $('#toastMsg').textContent = msg;
+    $('#toast').classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3200);
+  }
+
+  /* ---------- Navigation ---------- */
+  function go(view) {
+    $$('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + view));
+    $$('.tab').forEach(t => t.dataset.go === view ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
+    $$('#screenList button').forEach(b => b.setAttribute('aria-current', b.dataset.go === view));
+    $('#composer').classList.toggle('show', view === 'messages');
+    $('#views').scrollTop = 0;
+    if (view === 'messages') {
+      $('#msgBadge')?.remove();
+      requestAnimationFrame(() => { $('#views').scrollTop = $('#views').scrollHeight; });
+    }
+  }
+  document.addEventListener('click', e => {
+    const g = e.target.closest('[data-go]');
+    if (g) { e.preventDefault(); go(g.dataset.go); }
+  });
+
+  /* ---------- Post a shift ---------- */
+  const SKILLS = ['Anesthesia monitoring', 'Dental', 'Surgery assist', 'IV catheters', 'Radiology', 'ER / critical care', 'Phlebotomy', 'Restraint', 'Exotics', 'Fear Free'];
+  const postState = { tier: 'cvt', skills: new Set(['Anesthesia monitoring', 'Dental']), urgent: false };
+
+  $('#skillPicker').innerHTML = SKILLS.map(k =>
+    `<button type="button" class="skill-toggle" aria-pressed="${postState.skills.has(k)}" data-skill="${k}">${icon('check')}${k}</button>`).join('');
+  $('#skillPicker').addEventListener('click', e => {
+    const b = e.target.closest('[data-skill]');
+    if (!b) return;
+    const k = b.dataset.skill;
+    postState.skills.has(k) ? postState.skills.delete(k) : postState.skills.add(k);
+    b.setAttribute('aria-pressed', postState.skills.has(k));
+    updatePreview();
+  });
+
+  $$('.tier-opt').forEach(o => o.addEventListener('click', () => {
+    postState.tier = o.dataset.tier;
+    $$('.tier-opt').forEach(x => x.setAttribute('aria-checked', x === o));
+    $('#rateHint').innerHTML = `Area range for this tier: <b>${TIERS[postState.tier].range}</b> · higher rates fill faster`;
+    updatePreview();
+  }));
+
+  const rate = $('#pRate'), rateRange = $('#pRateRange');
+  rate.addEventListener('input', () => { rateRange.value = rate.value; updatePreview(); });
+  rateRange.addEventListener('input', () => { rate.value = rateRange.value; updatePreview(); });
+  ['#pDate', '#pStart', '#pEnd'].forEach(s => $(s).addEventListener('input', updatePreview));
+
+  $('#urgentSwitch').addEventListener('click', e => {
+    postState.urgent = !postState.urgent;
+    e.currentTarget.setAttribute('aria-checked', postState.urgent);
+    updatePreview();
+  });
+  $$('[data-toggle]').forEach(sw => sw.addEventListener('click', () =>
+    sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') !== 'true')));
+
+  function draftShift() {
+    return {
+      id: 'draft', clinic: 'Riverbend Animal Hospital', initials: 'RB', color: '#1E6F68', dist: '2.4 mi', rating: 4.8, reliab: 97,
+      date: $('#pDate').value || TODAY, start: $('#pStart').value || '07:00', end: $('#pEnd').value || '19:00',
+      rate: Math.max(0, Number(rate.value) || 0), tier: postState.tier,
+      skills: postState.skills.size ? [...postState.skills] : ['General support'],
+      urgent: postState.urgent ? 'Urgent' : '',
+    };
+  }
+  function updatePreview() {
+    const d = draftShift();
+    $('#postPreview').innerHTML = cardHTML(d, { preview: true });
+    const total = hours(d.start, d.end) * d.rate;
+    $('#postCost').textContent = `${money(total)} + ${money(Math.max(15, total * 0.08))} service fee`;
+  }
+  $('#postBtn').addEventListener('click', () => {
+    const d = draftShift();
+    toast(`Shift posted for ${fmtDate(d.date)}. ${postState.urgent ? 31 : 18} nearby ${TIERS[d.tier].name.toLowerCase()}s notified.`);
+  });
+
+  /* ---------- Messaging ---------- */
+  const thread = $('#thread');
+  function addMsg(text, who) {
+    const el = document.createElement('div');
+    el.className = 'msg ' + who;
+    el.textContent = text;
+    const t = document.createElement('time');
+    t.textContent = 'Just now';
+    el.appendChild(t);
+    thread.appendChild(el);
+    $('#views').scrollTop = $('#views').scrollHeight;
+  }
+  const replies = ['Sounds good, thanks for the heads up!', 'Got it 👍', 'Back lot, any open spot. See you soon!', 'Any color works, we have spare scrub tops too.'];
+  function send(text) {
+    if (!text.trim()) return;
+    addMsg(text.trim(), 'me');
+    setTimeout(() => addMsg(replies[Math.floor(Math.random() * replies.length)], 'them'), 1100);
+  }
+  $('#composeForm').addEventListener('submit', e => {
+    e.preventDefault();
+    send($('#composeInput').value);
+    $('#composeInput').value = '';
+  });
+  $('#quickReplies').addEventListener('click', e => { if (e.target.tagName === 'BUTTON') send(e.target.textContent); });
+  $('#callBtn').addEventListener('click', () => toast('Calling Riverbend through Tailshift. Your number stays private.'));
+  $('#detailsLink').addEventListener('click', e => { e.preventDefault(); toast('Sat, Oct 10 · 7a–7p · 2.4 mi · Check in with Jordan at the front desk'); });
+
+  /* ---------- Init ---------- */
+  renderShifts();
+  updatePreview();
+  go('browse');
+</script>
+</body>
+</html>
