@@ -236,6 +236,14 @@
   .now-box { display: flex; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-group); padding: 12px 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; margin: 16px 0 12px; }
   .now-box .ic { color: var(--ink-3); margin-top: 1px; }
 
+  .member { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; }
+  .member b { display: block; font-weight: 600; font-size: 15px; }
+  .member small { display: block; color: var(--ink-3); font-size: 12.5px; line-height: 1.4; }
+  .member .perms { color: var(--ink-2); margin-top: 3px; }
+  .member .tagline { font-size: 12px; font-weight: 600; color: var(--brand); white-space: nowrap; align-self: start; }
+  .member .tagline.muted { color: var(--ink-3); font-weight: 500; }
+  .invite-email { padding: 12px 14px; }
+
   /* Placement: first 5 shifts, no score yet */
   .placement { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-weight: 600; }
   .pips { display: inline-flex; gap: 3px; }
@@ -515,7 +523,7 @@
             <h1>Relief shifts for vet teams</h1>
             <p>Pick up shifts that fit your credential, or fill the ones your clinic can't cover.</p>
             <button class="choice" data-start="tech"><span class="mono"><svg class="ic"><use href="#i-user"/></svg></span><span><b>I'm a vet tech or assistant</b><small>Find shifts near you</small></span><svg class="ic"><use href="#i-chev"/></svg></button>
-            <button class="choice" data-start="clinic"><span class="mono"><svg class="ic"><use href="#i-building"/></svg></span><span><b>I work at a clinic</b><small>Post shifts and book verified techs</small></span><svg class="ic"><use href="#i-chev"/></svg></button>
+            <button class="choice" data-start="clinic"><span class="mono"><svg class="ic"><use href="#i-building"/></svg></span><span><b>I run a clinic's staffing</b><small>For practice managers and their delegates</small></span><svg class="ic"><use href="#i-chev"/></svg></button>
             <p class="signin-line">Already on Tailshift? <button class="textlink" id="signinLink">Sign in</button></p>
           </div>
         </section>
@@ -775,11 +783,21 @@
             <div class="kv"><dt>Pay</dt><dd>Through Tailshift, 2 business days after the shift</dd></div>
           </dl>
 
-          <div class="section">Who can post</div>
-          <div class="group">
-            <div class="doc"><span>Jordan Ellis</span><em class="opt">Practice manager · You</em></div>
-            <div class="doc"><span>Dr. Priya Shah</span><em class="opt">Medical director</em></div>
+          <div class="section">Team <span>Who can act for Riverbend</span></div>
+          <div class="group" id="teamList"></div>
+          <button class="btn btn-quiet btn-block" id="inviteBtn" style="margin-top:10px">Invite a delegate</button>
+          <div id="inviteForm" hidden>
+            <span class="label">New delegate</span>
+            <div class="group">
+              <div class="invite-email"><input class="field-input" type="email" id="inviteEmail" placeholder="Their work email" aria-label="Delegate's work email" autocomplete="off"></div>
+              <div class="row"><div class="txt"><b>Post shifts</b></div><button type="button" class="switch" role="switch" aria-checked="true" data-perm="Post shifts" aria-label="Post shifts"></button></div>
+              <div class="row"><div class="txt"><b>Approve techs</b></div><button type="button" class="switch" role="switch" aria-checked="true" data-perm="Approve techs" aria-label="Approve techs"></button></div>
+              <div class="row"><div class="txt"><b>Message techs</b></div><button type="button" class="switch" role="switch" aria-checked="true" data-perm="Message techs" aria-label="Message techs"></button></div>
+              <div class="row"><div class="txt"><b>Billing and payouts</b><small>Usually kept with the practice manager</small></div><button type="button" class="switch" role="switch" aria-checked="false" data-perm="Billing" aria-label="Billing and payouts"></button></div>
+            </div>
+            <button class="btn btn-primary btn-block" id="inviteSend" style="margin-top:10px">Send invite</button>
           </div>
+          <p class="hint" style="margin:10px 2px 0">Every post, approval and cancellation is logged with the person's name. A delegate's late cancellation counts against the clinic, same as yours.</p>
 
           <div class="section">Verification</div>
           <div class="group">
@@ -1461,10 +1479,42 @@
     el.innerHTML = Array.from({ length: 24 }, (_, i) => `<i class="${marks[i] || ''}"></i>`).join('');
   });
 
+  /* ---------- Clinic team: practice manager plus delegates ---------- */
+  const team = [
+    { name: 'Jordan Ellis', initials: 'JE', role: 'Practice manager · Account owner', perms: 'Full access, including billing and the team', tag: 'You' },
+    { name: 'Kelsey Moore', initials: 'KM', role: 'Lead tech · Delegate', perms: 'Post shifts · Approve techs · Message techs', tag: 'Delegate' },
+    { name: 'Dr. Priya Shah', initials: 'PS', role: 'Supervising veterinarian', perms: 'License verified. Confirmed Jordan as practice manager. No app access.', tag: 'Verified', muted: true },
+  ];
+  function renderTeam() {
+    $('#teamList').innerHTML = team.map(m => `
+      <div class="member"><div class="mono">${m.initials}</div>
+        <div><b>${esc(m.name)}</b><small>${m.role}</small><small class="perms">${m.perms}</small></div>
+        <span class="tagline${m.muted ? ' muted' : ''}">${m.tag}</span></div>`).join('');
+  }
+  $('#inviteBtn').addEventListener('click', () => {
+    const f = $('#inviteForm');
+    f.hidden = !f.hidden;
+    $('#inviteBtn').textContent = f.hidden ? 'Invite a delegate' : 'Cancel invite';
+    if (!f.hidden) $('#inviteEmail').focus({ preventScroll: true });
+  });
+  $$('[data-perm]').forEach(sw => sw.addEventListener('click', () =>
+    sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') !== 'true')));
+  $('#inviteSend').addEventListener('click', () => {
+    const email = $('#inviteEmail').value.trim();
+    if (!email.includes('@')) return toast('Enter their work email first.');
+    const perms = $$('[data-perm]').filter(x => x.getAttribute('aria-checked') === 'true').map(x => x.dataset.perm);
+    const name = email.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    team.push({ name, initials: name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(), role: 'Delegate · Invite sent',
+      perms: perms.length ? perms.join(' · ') : 'View only', tag: 'Pending', muted: true });
+    renderTeam();
+    $('#inviteForm').hidden = true; $('#inviteBtn').textContent = 'Invite a delegate'; $('#inviteEmail').value = '';
+    toast(`Invite sent to ${email}. They verify their phone and show up here once they accept.`);
+  });
+
   /* ---------- Sign-up and verification ---------- */
   let startSide = 'tech', accountMode = 'signup', techTier = 'cvt', uploadedName = '';
   const vstate = { tech: { cred: 'todo', idv: 'todo', bg: 'todo', pay: 'todo' }, clinic: { work: 'todo', dvm: 'todo', biz: 'todo', ins: 'todo' } };
-  const esc = t => t.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function esc(t) { return String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
   const TIER_NAMES = { cvt: 'Credentialed tech', va: 'Veterinary assistant', stu: 'Student or uncredentialed tech' };
 
   function techSteps() {
@@ -1487,10 +1537,10 @@
   function clinicSteps() {
     return [
       { id: 'find', title: 'Your clinic', sub: 'Riverbend Animal Hospital, 2140 SE Division St, Portland. Matched to its public business listing.', fixed: 'done' },
-      { id: 'work', title: 'Show you work there', sub: "We call the clinic's listed phone number with a 6-digit code. A work email at the clinic's domain also works.", action: 'Call clinic',
-        result: () => 'Confirmed by phone · (503) 555-0142' },
-      { id: 'dvm', title: 'Supervising veterinarian', sub: 'License of the vet who supervises techs on shift. Checked with the state board.', action: 'Add',
-        result: () => 'Dr. Priya Shah, DVM · active license' },
+      { id: 'work', title: 'Confirm you manage the clinic', sub: "We call the clinic's listed phone number with a 6-digit code. You become the account owner and can add delegates later.", action: 'Call clinic',
+        result: () => 'Code confirmed by phone · (503) 555-0142' },
+      { id: 'dvm', title: 'Supervising veterinarian', sub: 'License of the vet who supervises techs on shift, checked with the state board. We email them to confirm you manage the clinic.', action: 'Add',
+        result: () => 'Dr. Priya Shah, DVM · license active · confirmed you' },
       { id: 'biz', title: 'Business and payout', sub: 'Legal business name, EIN and a bank account, so techs are paid on time.', action: 'Add',
         result: () => 'EIN matched · bank account ending 4417' },
       { id: 'ins', title: 'Liability insurance', sub: 'Optional. Shown to techs as a badge on your shifts.', action: 'Upload', file: true,
@@ -1578,12 +1628,12 @@
       ? ['Welcome back', 'Sign in', "You'll land on your side of the app. There's no need to pick tech or clinic again."]
       : startSide === 'tech'
         ? ['Step 1 of 2 · Vet tech account', 'Create your account', "Next you'll verify your credential. You can browse shifts while that happens."]
-        : ['Step 1 of 2 · Clinic account', 'Create your account', "Next you'll verify your clinic. You can draft shifts while that happens."];
+        : ['Step 1 of 2 · Clinic account', 'Create your account', "For practice managers. Next you'll verify the clinic, then you can invite delegates. Invited delegates sign in from their invite link."];
     $('#acctEyebrow').textContent = copy[0]; $('#acctTitle').textContent = copy[1]; $('#acctSub').textContent = copy[2];
   }
 
   /* ---------- Start ---------- */
-  renderShifts(); renderMine(); renderPosted(); renderApplicants(); updatePreview(); renderAccount(); renderVerify();
+  renderShifts(); renderMine(); renderPosted(); renderApplicants(); updatePreview(); renderAccount(); renderVerify(); renderTeam();
   renderThread(); renderQuick();
   setRole('onboard');
 </script>
